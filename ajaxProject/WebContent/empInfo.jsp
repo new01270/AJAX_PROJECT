@@ -9,11 +9,11 @@
 <body>
 	<%
 		String empId = request.getParameter("id");
-		String firstName = request.getParameter("firstName");
+		
 	%>
 	<h1>아이디:<%=empId%></h1>
 
-	employeeId:<input type="text" value=<%request.getParameter("id"); %> ><br>
+	employeeId:<input type="text" value=100 ><br>
 	firstName:<input type="text" value="Steven" ><br>
 	lastName:<input type="text" value="King" ><br>
 	email:<input type="text" value="SKING" ><br>
