@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Hello, 서수연 입니다.</h1>
+	<div id="result"></div>
+	<script>
+		let xhtp = new XMLHttpRequest();
+		xhtp.onreadystatechange = function() {
+			if (xhtp.readyState == 4 && xhtp.status == 200) {
+				console.log(xhtp.responseText);
+				let data = JSON.parse(xhtp.responseText);
+				console.log(data);
+				let tag = "<ul>";
+				for (let i = 0; i < data.length; i++) {
+					tag += "<li>" + data[i].id + ", <a href='empInfo.jsp?id="+data[i].id+"'>"+ data[i].firstName + "</a></li>";
+				}
+				tag += "</ul>";
+
+				document.getElementById("result").innerHTML = tag;
+			}
+		}
+		xhtp.open('get', 'GetEmployeeListServ');
+		xhtp.send();
+	</script>
+</body>
+</html>
