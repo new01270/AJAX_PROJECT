@@ -40,6 +40,12 @@ public class EmpDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return emp;
 	}
@@ -69,6 +75,12 @@ public class EmpDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return employees;
 
