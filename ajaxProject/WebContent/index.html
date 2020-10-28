@@ -6,14 +6,16 @@
 <style>
 div#result {
 	display: inline-block;
-	width: 200px border: 1px solid yellow;
+	width: 200px;
+	border: 1px solid red;
 }
 
 div#detail {
 	position: absolute;
 	right: 0;
 	display: inline-block;
-	width: 250px border: 1px solid yellow;
+	width: 250px;
+	border: 1px solid red;
 }
 
 label {
@@ -30,13 +32,16 @@ label {
 		<label for="id">Id:</label> 
 		<input type="text" name="id" id="eid" value="100"><br>
 		<label for="fName">FName:</label> 
-		<input type="text" name="fName"	id="fName"	value="100"><br> 
+		<input type="text" name="fName
+		"	id="fName"	value="100"><br> 
 		<label for="lName">LName:</label> 
 		<input	type="text" name="lName" id="Lname" value="100"><br> 
 		<label for="email">Email:</label> 
 		<input type="text" name="email" id="email" value="100"><br> 
 		<label for="salary">Salary:</label> 
 		<input type="text" name="salary" id="salary" value="100"><br>
+		<label for="jobId">jobId:</label> 
+		<input type="text" name="jobId" id="jobId" value="100"><br>
 	</div>
 
 	<script>
@@ -99,6 +104,7 @@ label {
 					document.getElementById('Lname').value = data.lastName;
 					document.getElementById('email').value = data.email;
 					document.getElementById('salary').value = data.salary;
+					document.getElementById('jobId').value = data.jobId;
 					
 				}
 				

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>google/piechart.html</title>
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	let resultAry = [
+		['Dept', 'Members Dept']
+	];
+	let xhtp = new XMLHttpRequest();
+	xhtp.onreadystatechange = function() {
+		if (xhtp.readyState == 4 && xhtp.status == 200) {
+			let data = xhtp.response;
+			for (let i = 0; i < data.length; i++) {
+				let iAry = [];
+				for (field in data[i]) {
+					iAry.push(field); //iAry의 배열에 필드 추가.key
+					iAry.push(parseInt(data[i][field])); //iAry의 배열에 필드값 추가.value
+				}
+				resultAry.push(iAry);
+			}
+			console.log(resultAry);
+		}
+
+	}
+
+	xhtp.responseType = 'json'; //파싱 할 필요없음.
+	xhtp.open('get', '../GetMemberPerDeptServlet');
+	xhtp.send();
+
+	google.charts.load('current', {
+		'packages' : [ 'corechart' ]
+	});
+	google.charts.setOnLoadCallback(drawChart);
+
+	//setOnLoadCallback(drawChart) 의 func 매개변수.
+	function drawChart() {
+
+		var temp = [ 
+			[ 'Task', 'Hours per Day' ], 
+			[ '잠', 10 ], 
+			[ '휴식', 5 ],
+			[ '힐링', 1 ], 
+			[ '명상', 2 ], 
+			[ '생각', 5 ] ];
+
+		temp = resultAry;	//temp의 값을 resultAry로 대체.
+
+		var data = google.visualization.arrayToDataTable(temp);
+
+		var options = {
+			title : '부서별 사원 수'
+		};
+
+		var chart = new google.visualization.PieChart(document
+				.getElementById('piechart')); //div 매개값.
+
+		chart.draw(data, options);
+	}
+
+	//SELECT department_id, count(*) FROM employees GROUP BY department_id;
+</script>
+</head>
+<body>
+	<div id="piechart" style="width: 900px; height: 500px;"></div>
+</body>
+</html>
