@@ -22,9 +22,9 @@ public class GetMemberPerDeptServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		EmpDAO dao = new EmpDAO(); // ë°˜ë“œì‹œ ê¸°ì–µ. daoì˜ ìƒì„±ì í˜¸ì¶œ.
+		EmpDAO dao = new EmpDAO(); // // ¹İµå½Ã ±â¾ï. daoÀÇ »ı¼ºÀÚ È£Ãâ.
 		Map<String, Integer> members = dao.getMemberPerDept();
-		Set<String> keySet = members.keySet();	// entrySet=key+value
+		Set<String> keySet = members.keySet();	// ketSet(key),entrySet(key+value)
 		String json = "[";
 		int cnt = 0, dataLength = keySet.size();
 		for(String key : keySet) {
@@ -37,8 +37,8 @@ public class GetMemberPerDeptServlet extends HttpServlet {
 				json += ",";
 			}
 		}
-		json += "]";	// jsonì˜ ë°°ì—´ë¡œ í‘œí˜„.
-		response.getWriter().append(json); // webì— ë°ì´í„° ì¶œë ¥.
+		json += "]";	// jsonÀÇ ¹è¿­·Î Ç¥Çö.
+		response.getWriter().append(json); // web¿¡ µ¥ÀÌÅÍ Ãâ·Â.
 	}
 
 

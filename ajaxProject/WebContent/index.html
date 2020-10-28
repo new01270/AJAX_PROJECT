@@ -63,6 +63,7 @@ label {
 
 				document.getElementById("result").innerHTML = tag;
 
+				// mouseover,out 호출
 				mouseOverFunc();
 				mouseOutFunc();
 			}
@@ -72,7 +73,7 @@ label {
 
 		//mouseover event.
 		function mouseOverFunc() {
-			let lis = document.getElementsByTagName('li');
+			let lis = document.getElementsByTagName('li');	//getElementsByTagName 태그네임이 여러건일 떄 'sssss
 			for (let i = 0; i < lis.length; i++) {
 				lis[i].onmouseover = function() {
 					console.log(this.id);
@@ -94,7 +95,7 @@ label {
 			}
 		}
 
-		function getEmpInfo(empId) {
+		function getEmpInfo(empId) {	// EmpDAO클래스의 getEmpInfo(매개변수).
 			let xhtp = new XMLHttpRequest();
 			xhtp.onreadystatechange = function() {
 				if (xhtp.readyState == 4 && xhtp.status == 200) {
@@ -106,7 +107,7 @@ label {
 					document.getElementById('email').value = data.email;
 					document.getElementById('salary').value = data.salary;
 					document.getElementById('jobId').value = data.jobId;
-					
+					// DB에서는 불러온 데이터와 달리 여기서 값을 불러온 여섯가지 데이터들만 web에 보여준다.
 				}
 				
 			}

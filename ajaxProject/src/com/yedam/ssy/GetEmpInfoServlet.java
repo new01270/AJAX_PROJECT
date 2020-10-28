@@ -14,12 +14,14 @@ public class GetEmpInfoServlet extends HttpServlet {
 	public GetEmpInfoServlet() {
 		super();
 	}
-
+/*
+ * getEmpInfo(empId) : empIdø° «ÿ¥Á«œ¥¬ first_name ~ department_id±Ó¡ˆ jsonø° ¥„æ∆¡ÿ¥Ÿ.
+ */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String empId = request.getParameter("id");	//?Îí§Ïùò ÏïÑÏù¥Îîî
+		String empId = request.getParameter("id");	// ?µ⁄¿« æ∆¿Ãµ
 		EmpDAO dao = new EmpDAO();
-		Employee emp = dao.getEmpInfo(empId);
+		Employee emp = dao.getEmpInfo(empId);	// EmpDAO≈¨∑°Ω∫¿« getEmpInfo(∏≈∞≥∫Øºˆ).
 		String json = "{\"id\":\"" + emp.getEmployeeId() 
         + "\", \"firstName\":\"" + emp.getFirstName()
         + "\", \"lastName\":\"" + emp.getLastName() 
@@ -32,7 +34,7 @@ public class GetEmpInfoServlet extends HttpServlet {
         + "\", \"managerId\":\"" + emp.getManagerId()
         + "\", \"departmentId\":\"" + emp.getDepartmentId() + "\"}";
 		
-		response.getWriter().append(json);
+		response.getWriter().append(json); // json¿ª √ﬂ∞°«ÿº≠ ∞¥√º∏¶ π›»Ø«—¥Ÿ -> index.html¿« getEmpInfo(empId);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

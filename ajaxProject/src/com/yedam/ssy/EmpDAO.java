@@ -12,7 +12,7 @@ import java.util.Map;
 import com.yedom.common.DBconnect;
 
 /*
- * PreparedStatement ì¸í„°í˜ì´ìŠ¤ëŠ” Connection ê°ì²´ì˜ prepareStatement() ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•´ì„œ ê°ì²´ ìƒì„±.
+ * PreparedStatement ÀÎÅÍÆäÀÌ½º´Â Connection °´Ã¼ÀÇ prepareStatement() ¸Ş¼Òµå¸¦ »ç¿ëÇØ¼­ °´Ã¼ »ı¼º.
  */
 
 public class EmpDAO {
@@ -30,8 +30,8 @@ public class EmpDAO {
 			psmt.setString(2, j);
 			psmt.setString(3, eid);
 			
-			int r = psmt.executeUpdate();	//updateëœ ë§Œí¼ rì— ë‹´ì•„ ì—…ë°ì´íŠ¸ ì‹¤í–‰.
-			System.out.println(r + "ê±´ ë³€ê²½ì™„ë£Œ.");
+			int r = psmt.executeUpdate();	//updateµÈ ¸¸Å­ r¿¡ ´ã¾Æ ¾÷µ¥ÀÌÆ® ½ÇÇà.
+			System.out.println(r + "°Ç ¾÷µ¥ÀÌÆ® ¿Ï·á");
 			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -44,18 +44,25 @@ public class EmpDAO {
 		}
 	}
 	
+	/*
+	 * *DB·Î query¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetMemberPerDeptServletÅëÇØ web°ú ±³È¯.(return memberPerDept).
+	 * Map¿¡ ÀúÀåµÇ´Â µ¥ÀÌÅÍ´Â ¡®key-value¡¯ pair¶ó´Â Çü½Ä.
+	 */
 	public Map<String, Integer> getMemberPerDept() {
 		conn = DBconnect.getCon();
 		String sql = "SELECT d.department_name, e.cnt  " + 
 				"FROM (select department_id, count(*) as cnt " + 
 				"from employees group by department_id) e, departments d " + 
-				"WHERE e.department_id = d.department_id";
+				"WHERE e.department_id = d.department_id";	
+		// employees Å×ÀÌºíÀÇ department_idº°·Î Á¤·ÄÇÑ department_id ¿Í cnt (e) + departments Å×ÀÌºí(d) = (e,dÀÇ) deparment_id °¡ °°ÀºÁ¶°ÇÀÇ select. 
+		
 		Map<String, Integer> memberPerDept = new HashMap<>();
 		try {
 			psmt = conn.prepareStatement(sql);
 			rs = psmt.executeQuery();
 			while(rs.next()) {
 				memberPerDept.put(rs.getString("department_name"), rs.getInt("cnt"));
+				// key: department_name, value: cnt.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -69,6 +76,7 @@ public class EmpDAO {
 		return memberPerDept;		
 	}
 	
+	/*DB·Î query¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetEmpInfoServletÅëÇØ web°ú ±³È¯(return emp)*/
 	public Employee getEmpInfo(String empId) {
 		conn = DBconnect.getCon();
 		Employee emp = new Employee();
@@ -101,17 +109,18 @@ public class EmpDAO {
 		return emp;
 	}
 
+	/*DB·Î employees table ÀÇ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetEmployeeListServ ÅëÇØ web ±³È¯(return employees)*/
 	public List<Employee> getEmpList() {
 		List<Employee> employees = new ArrayList<>();
 		try {
-			conn = DBconnect.getCon();
-			psmt = conn.prepareStatement("select * from employees order by 1");
+			conn = DBconnect.getCon();	// db¿¬°á
+			psmt = conn.prepareStatement("select * from employees order by 1");	// db¿¬°á°í¸®->Äõ¸®¹®½ÇÇà
 
 			rs = psmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next()) {	// rs¿¡ µ¥ÀÌÅÍ ´ãÀ»¶§±îÁö ½ÇÇà.
 				Employee emp = new Employee();
-				emp.setEmployeeId(rs.getInt("employee_id"));
-				emp.setFirstName(rs.getString("first_name"));
+				emp.setEmployeeId(rs.getInt("employee_id"));	// dbµ¥ÀÌÅÍÀÇ ÄÃ·³°ú µ¿ÀÏÇØ¾ßÇÔ. db data°¡Á®¿À´Â °ÍÀÌ¹Ç·Î.
+				emp.setFirstName(rs.getString("first_name"));	//first_nameÀ» getStringÇÏ¿© rs¿¡ ´ã¾Æ setStringÀ¸·Î °¡Á®¿Í emp¿¡ ´ã´Â´Ù.
 				emp.setLastName(rs.getString("last_name"));
 				emp.setEmail(rs.getString("email"));
 				emp.setPhoneNumber(rs.getString("phone_number"));
@@ -122,7 +131,7 @@ public class EmpDAO {
 				emp.setManagerId(rs.getInt("manager_id"));
 				emp.setDepartmentId(rs.getInt("department_id"));
 
-				employees.add(emp);
+				employees.add(emp);	// emp¿¡ ÇÊ¿äÇÑ db data´ã¾Æ List<employee>¿¡ ´ã´Â´Ù.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

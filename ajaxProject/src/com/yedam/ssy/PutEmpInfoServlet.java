@@ -15,7 +15,7 @@ public class PutEmpInfoServlet extends HttpServlet {
 
     public PutEmpInfoServlet() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
 
@@ -32,7 +32,7 @@ public class PutEmpInfoServlet extends HttpServlet {
 		String mId = request.getParameter("mId");
 		String dI = request.getParameter("dI");
 		
-		//ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ìˆ˜ì •í•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€.empDAO
+		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ¼öÁ¤ÇÏ´Â ±â´É Ãß°¡.empDAO
 		
 		EmpDAO dao = new EmpDAO();
 		dao.updateEmpInfo(empId, jobId, salary);
@@ -43,7 +43,7 @@ public class PutEmpInfoServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 		doGet(request, response);
 	}
 
