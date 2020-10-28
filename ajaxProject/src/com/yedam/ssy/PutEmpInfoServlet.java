@@ -32,7 +32,7 @@ public class PutEmpInfoServlet extends HttpServlet {
 		String mId = request.getParameter("mId");
 		String dI = request.getParameter("dI");
 		
-		//µ¥ÀÌÅÍº£ÀÌ½º¿¡¼­ ¼öÁ¤ÇÏ´Â ±â´É Ãß°¡.empDAO
+		//ë°ì´í„°ë² ì´ìŠ¤ì—ì„œ ìˆ˜ì •í•˜ëŠ” ê¸°ëŠ¥ ì¶”ê°€.empDAO
 		
 		EmpDAO dao = new EmpDAO();
 		dao.updateEmpInfo(empId, jobId, salary);

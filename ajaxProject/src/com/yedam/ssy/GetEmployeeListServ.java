@@ -18,12 +18,12 @@ public class GetEmployeeListServ extends HttpServlet {
 
 	}
 	
-	// db¿¡¼­ ºÒ·¯¿Â µ¥ÀÌÅÍ ÀÛ¾÷.
+	// dbì—ì„œ ë¶ˆëŸ¬ì˜¨ ë°ì´í„° ì‘ì—….
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
 		EmpDAO dao = new EmpDAO();	
-		List<Employee> list = dao.getEmpList();	// employee¿¡ ´ãÀº data¸¦ 'list'ÀÎ½ºÅÏ½º¿¡ ´ã¾ÆÁØ´Ù.
+		List<Employee> list = dao.getEmpList();	// employeeì— ë‹´ì€ dataë¥¼ 'list'ì¸ìŠ¤í„´ìŠ¤ì— ë‹´ì•„ì¤€ë‹¤.
 //		 [{"id":employee_id, "firstName":first_name,...},
 //		{"id":employee_id, "firstName":first_name,...},
 //		{"id":employee_id, "firstName":first_name,...},
@@ -34,7 +34,7 @@ public class GetEmployeeListServ extends HttpServlet {
 		int dataCnt = list.size();
 		int i = 0;
 		for (Employee emp : list) {
-			json += "{\"id\":\"" + emp.getEmployeeId()	// setÀ¸·Î ´ã¾ÆÁØ data->getÀ¸·Î °¡Á®¿À±â->jsonÅ¸ÀÔÀ¸·Î ¼ö±âº¯°æ.
+			json += "{\"id\":\"" + emp.getEmployeeId()	// setìœ¼ë¡œ ë‹´ì•„ì¤€ data->getìœ¼ë¡œ ê°€ì ¸ì˜¤ê¸°->jsoníƒ€ì…ìœ¼ë¡œ ìˆ˜ê¸°ë³€ê²½.
 	         + "\", \"firstName\":\"" + emp.getFirstName()
 	         + "\", \"lastName\":\"" + emp.getLastName() 
 	         + "\", \"email\":\"" + emp.getEmail()
@@ -53,7 +53,7 @@ public class GetEmployeeListServ extends HttpServlet {
 		}
 		json += "]";
 
-		response.getWriter().append(json);	//json°´Ã¼¸¦ Ãß°¡ÇÏ¿© ¹İÈ¯ÇÑ´Ù.-> index.htmlÀÇ <script>ÀÇ xhtp.open¿¡ get.
+		response.getWriter().append(json);	// jsonê°ì²´ë¥¼ ì¶”ê°€í•˜ì—¬ ë°˜í™˜í•œë‹¤.-> index.htmlì˜ <script>ì˜ xhtp.openì— get.
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

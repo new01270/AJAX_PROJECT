@@ -12,7 +12,7 @@ import java.util.Map;
 import com.yedom.common.DBconnect;
 
 /*
- * PreparedStatement ÀÎÅÍÆäÀÌ½º´Â Connection °´Ã¼ÀÇ prepareStatement() ¸Ş¼Òµå¸¦ »ç¿ëÇØ¼­ °´Ã¼ »ı¼º.
+ * PreparedStatement ì¸í„°í˜ì´ìŠ¤ëŠ” Connection ê°ì²´ì˜ prepareStatement() ë©”ì†Œë“œë¥¼ ì‚¬ìš©í•´ì„œ ê°ì²´ ìƒì„±.
  */
 
 public class EmpDAO {
@@ -30,8 +30,8 @@ public class EmpDAO {
 			psmt.setString(2, j);
 			psmt.setString(3, eid);
 			
-			int r = psmt.executeUpdate();	//updateµÈ ¸¸Å­ r¿¡ ´ã¾Æ ¾÷µ¥ÀÌÆ® ½ÇÇà.
-			System.out.println(r + "°Ç ¾÷µ¥ÀÌÆ® ¿Ï·á");
+			int r = psmt.executeUpdate();	//updateëœ ë§Œí¼ rì— ë‹´ì•„ ì—…ë°ì´íŠ¸ ì‹¤í–‰.
+			System.out.println(r + "ê±´ ì—…ë°ì´íŠ¸ ì™„ë£Œ");
 			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
@@ -45,8 +45,8 @@ public class EmpDAO {
 	}
 	
 	/*
-	 * *DB·Î query¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetMemberPerDeptServletÅëÇØ web°ú ±³È¯.(return memberPerDept).
-	 * Map¿¡ ÀúÀåµÇ´Â µ¥ÀÌÅÍ´Â ¡®key-value¡¯ pair¶ó´Â Çü½Ä.
+	 * DBë¡œ queryì— í•„ìš”í•œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° -> GetMemberPerDeptServletí†µí•´ webê³¼ êµí™˜.(return memberPerDept).
+	 * Mapì— ì €ì¥ë˜ëŠ” ë°ì´í„°ëŠ” â€˜key-valueâ€™ pairë¼ëŠ” í˜•ì‹.
 	 */
 	public Map<String, Integer> getMemberPerDept() {
 		conn = DBconnect.getCon();
@@ -54,7 +54,7 @@ public class EmpDAO {
 				"FROM (select department_id, count(*) as cnt " + 
 				"from employees group by department_id) e, departments d " + 
 				"WHERE e.department_id = d.department_id";	
-		// employees Å×ÀÌºíÀÇ department_idº°·Î Á¤·ÄÇÑ department_id ¿Í cnt (e) + departments Å×ÀÌºí(d) = (e,dÀÇ) deparment_id °¡ °°ÀºÁ¶°ÇÀÇ select. 
+		// employees í…Œì´ë¸”ì˜ department_idë³„ë¡œ ì •ë ¬í•œ department_id ì™€ cnt (e) + departments í…Œì´ë¸”(d) = (e,dì˜) deparment_id ê°€ ê°™ì€ì¡°ê±´ì˜ select. 
 		
 		Map<String, Integer> memberPerDept = new HashMap<>();
 		try {
@@ -76,7 +76,7 @@ public class EmpDAO {
 		return memberPerDept;		
 	}
 	
-	/*DB·Î query¿¡ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetEmpInfoServletÅëÇØ web°ú ±³È¯(return emp)*/
+	/*DBë¡œ queryì— í•„ìš”í•œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° -> GetEmpInfoServletí†µí•´ webê³¼ êµí™˜(return emp)*/
 	public Employee getEmpInfo(String empId) {
 		conn = DBconnect.getCon();
 		Employee emp = new Employee();
@@ -109,18 +109,18 @@ public class EmpDAO {
 		return emp;
 	}
 
-	/*DB·Î employees table ÀÇ ÇÊ¿äÇÑ µ¥ÀÌÅÍ ºÒ·¯¿À±â -> GetEmployeeListServ ÅëÇØ web ±³È¯(return employees)*/
+	/*DBë¡œ employees table ì˜ í•„ìš”í•œ ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° -> GetEmployeeListServ í†µí•´ web êµí™˜(return employees)*/
 	public List<Employee> getEmpList() {
 		List<Employee> employees = new ArrayList<>();
 		try {
-			conn = DBconnect.getCon();	// db¿¬°á
-			psmt = conn.prepareStatement("select * from employees order by 1");	// db¿¬°á°í¸®->Äõ¸®¹®½ÇÇà
+			conn = DBconnect.getCon();	// dbì—°ê²°
+			psmt = conn.prepareStatement("select * from employees order by 1");	// dbì—°ê²°ê³ ë¦¬->ì¿¼ë¦¬ë¬¸ì‹¤í–‰
 
 			rs = psmt.executeQuery();
-			while (rs.next()) {	// rs¿¡ µ¥ÀÌÅÍ ´ãÀ»¶§±îÁö ½ÇÇà.
+			while (rs.next()) {	//  rsì— ë°ì´í„° ë‹´ì„ë•Œê¹Œì§€ ì‹¤í–‰.
 				Employee emp = new Employee();
-				emp.setEmployeeId(rs.getInt("employee_id"));	// dbµ¥ÀÌÅÍÀÇ ÄÃ·³°ú µ¿ÀÏÇØ¾ßÇÔ. db data°¡Á®¿À´Â °ÍÀÌ¹Ç·Î.
-				emp.setFirstName(rs.getString("first_name"));	//first_nameÀ» getStringÇÏ¿© rs¿¡ ´ã¾Æ setStringÀ¸·Î °¡Á®¿Í emp¿¡ ´ã´Â´Ù.
+				emp.setEmployeeId(rs.getInt("employee_id"));	// dbë°ì´í„°ì˜ ì»¬ëŸ¼ê³¼ ë™ì¼í•´ì•¼í•¨. db dataê°€ì ¸ì˜¤ëŠ” ê²ƒì´ë¯€ë¡œ.
+				emp.setFirstName(rs.getString("first_name"));	//first_nameì„ getStringí•˜ì—¬ rsì— ë‹´ì•„ setStringìœ¼ë¡œ ê°€ì ¸ì™€ empì— ë‹´ëŠ”ë‹¤.
 				emp.setLastName(rs.getString("last_name"));
 				emp.setEmail(rs.getString("email"));
 				emp.setPhoneNumber(rs.getString("phone_number"));
@@ -131,7 +131,7 @@ public class EmpDAO {
 				emp.setManagerId(rs.getInt("manager_id"));
 				emp.setDepartmentId(rs.getInt("department_id"));
 
-				employees.add(emp);	// emp¿¡ ÇÊ¿äÇÑ db data´ã¾Æ List<employee>¿¡ ´ã´Â´Ù.
+				employees.add(emp);	// empì— í•„ìš”í•œ db dataë‹´ì•„ List<employee>ì— ë‹´ëŠ”ë‹¤.
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
