@@ -28,12 +28,12 @@ label {
 	<h1>Hello, 서수연 입니다.</h1>
 	<div id="result"></div>
 	<div id="detail">
+		<!-- label의 for는 input의 name을 가져온다. -->
 		<p>상세정보</p>
-		<label for="id">Id:</label> 
+		<label for="id">Id:</label> 	
 		<input type="text" name="id" id="eid" value="100"><br>
 		<label for="fName">FName:</label> 
-		<input type="text" name="fName
-		"	id="fName"	value="100"><br> 
+		<input type="text" name="fName"	id="fName"	value="100"><br> 
 		<label for="lName">LName:</label> 
 		<input	type="text" name="lName" id="Lname" value="100"><br> 
 		<label for="email">Email:</label> 
@@ -45,14 +45,15 @@ label {
 	</div>
 
 	<script>
-		let xhtp = new XMLHttpRequest();
+		let xhtp = new XMLHttpRequest();	//1ajax핵심.
 		xhtp.onreadystatechange = function() {
-			if (xhtp.readyState == 4 && xhtp.status == 200) {
-				console.log(xhtp.responseText);
+			if (xhtp.readyState == 4 && xhtp.status == 200) {//3조건을 만족할떼 실행
+				console.log(xhtp.responseText);	//4교환하면서 결과값 받아옴
 				let data = JSON.parse(xhtp.responseText);
 				console.log(data);
 
 				let tag = "<ul>";
+				//<li id="data[i].id"> + data[i].id + , + <a href=empInfo.jsp?id=data[i].id> + data[i].firstName</a></li>
 				for (let i = 0; i < data.length; i++) {
 					tag += "<li id=" + data[i].id + ">" + data[i].id
 							+ ", <a href='empInfo.jsp?id=" + data[i].id + "'>"
@@ -66,7 +67,7 @@ label {
 				mouseOutFunc();
 			}
 		}
-		xhtp.open('get', 'GetEmployeeListServ');
+		xhtp.open('get', 'GetEmployeeListServ');//2
 		xhtp.send();
 
 		//mouseover event.
