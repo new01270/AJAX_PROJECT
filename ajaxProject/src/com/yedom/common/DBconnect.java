@@ -15,9 +15,9 @@ public class DBconnect {
 		try {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, password);
-			System.out.println("DB¿¬°á¼º°ø");
+			System.out.println("DBì—°ê²°ì„±ê³µ");
 		} catch (Exception e) {
-			System.out.println("DB¿¬°á½ÇÆÐ");
+			System.out.println("DBì—°ê²°ì‹¤íŒ¨faild");
 		}
 		return conn;
 	}
