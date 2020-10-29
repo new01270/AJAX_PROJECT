@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/jquery_traversing.html</title>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        /*
+        이 문서에서 모든 data를 읽어와 실행하겠다.
+       $(document).ready(function(){    });
+        */
+
+        let persons = [];
+        $(document).ready(function () {
+
+            $('#ok').on('click', function () {
+                let name = $('input[name=name]').val();
+                let age = $('input[name=age]').val();
+                let score = $('input[name=score]').val();
+
+                let person = {};
+                person.name = name;
+                person.age = age;
+                person.score = score;
+                console.log(person);
+
+                persons.push(person);
+                console.log(persons);
+            });
+
+
+            // 생성버튼-> 입력한 값 화면에 테이블 생성.
+            $('#create').on('click', function () {
+                persons.forEach(function (item, idx) {
+                    //foreach 반복문은 오직 Array 객체에서만 사용가능한 메서드
+
+                    let tr = $('<tr />');
+                    for (field in item) {
+                        tr.append($('<td />').html(item[field]));
+
+                    }
+                    let btn = $('<button />').html('오케');
+                    btn.click(function () {
+                        let tbl = $('#tbl');
+                        // console.log(tbl.children().eq(0).children().eq(1).children().first().html());   // 이름값
+                        
+                        console.log($(tbl).find('td').eq(0).html());
+                        // console.log($(tbl).find('td:eq(0)').html());    // 다른방식
+
+                        // $(this).parent().parent().remove();
+                        // $(this).parents().remove();  // 최상위 지움->table 자체 지워짐.
+                        // $(this).parentsUntil('tbody').remove(); // tbody전까지 삭제(라인삭제).
+                        // button -(parent)td - (parent)tr - (parent) tbody - (parent) table
+                    })
+
+                    tr.append($('<td />').append(btn));
+                    $('#tbl').append(tr);
+                });
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <!-- div#input>input*3 -->
+    <div id="input">
+        <input type="text" name="name">
+        <input type="text" name="age">
+        <input type="text" name="score">
+        <button id="ok">OK</button>
+    </div>
+    <button id="create">생성</button>
+    <div id="show"></div>
+    <table id="tbl" border="5">
+        <tr>
+            <th>이름</th>
+            <th>나이</th>
+            <th>점수</th>
+            <th>이벤트</th>
+        </tr>
+
+    </table>
+</body>
+
+</html>

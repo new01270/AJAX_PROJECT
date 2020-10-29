@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/jquery.html</title>
+    <script src="jquery-3.5.1.min.js"></script> 
+</head>
+<body>
+    <div id="show">
+        <ul>
+            <li>One</li>
+            <li>Two</li>
+            <li>Three</li>
+            <!--<li>Four</li>-->
+        </ul>
+    </div>
+    <script>
+        // $: jQuery 문법입니다.
+        $("#show>ul>li").eq(0).html('Hello');   // eq(0): 첫번째 인덱스값과 교환.(one->hello).
+        $('#show>ul').append($("<li>").html("Four")); 
+        $('#show').attr("name","Hong").attr("class","content"); // (setAttribute)속성넣기.
+        
+        /* 
+        JavaScript ver.
+        => document.getElementById('show').innerHTML='hello';
+        => let lis = document.querySelectorAll('#show>ul>li');
+          lis[0].innerHTML = 'hello';
+        => let li = document.createElement('li');
+           let text = document.createTextNode('Four');
+           li.append(text);
+           document.querySelectorAll('#show>ul');
+           ul.append(li); 
+        
+        */
+
+
+        let fruits = ['apple', 'banana', 'mango'];
+
+        $('#show').after($('<div>').attr('id','fruits'));
+        $('#fruits').append($('<ul>'));
+        for(let i = 0; i < fruits.length; i++) {
+            $('#fruits>ul').append($('<li>').html(fruits[i]));
+        }    
+
+        /*        
+        let div = $('<div>').attr('id','fruits');
+        let ul = $('<ul>');
+        div.append(ul);
+        for(fruit of fruits) {
+            ul.append($('<li>').html(fruit));
+        }
+        $('#show').after(div);
+        */
+
+        
+        
+        
+        
+
+
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/json.html</title>
+</head>
+<body>
+    <script>
+        // obj -> json -> obj
+        // 상호변경해도 data 손실없이 출력됨.
+        let obj = {
+            "name":"Hong",
+            "age":10,
+            "marriage":true,
+            birth: new Date(),
+            showInfo: function() {
+                // object가 가진 method.
+                return "name: " + this.name + ", age: " + this.age;
+            }
+        }
+        console.log(obj.showInfo());    // obj가 가진 method 출력.
+        console.log(obj);
+        
+        // let json = JSON.stringify(obj); // obj type을 json type으로 변경.
+        // console.log(json);
+        
+        // obj = JSON.parse(json); // json type을 object type으로 변경.
+        
+        
+        let json = JSON.stringify(obj,["name"]);
+        
+        obj = JSON.parse(json, function(k,v) {
+            console.log(k, v);
+            // obj를 json으로 변환하여 함수에 key,value값으로 출력.
+            // let result = (k == "name")? "Kim" : v; // 삼항연산자.
+            let result = (k == "birth")? new Date(v) : v;   // date인 경우 선택적으로 변경. 
+
+            return result;
+        });
+        console.log(obj);   //return 해줌으로서 값을 정상적으로 반환.
+        
+
+
+        /* 람다식
+        obj = JSON.parse(json, (k, v) => {
+            // console.log(k, v);
+            return (k == "birth")? new Date(v) : v; 
+        }
+        */
+    </script>
+</body>
+</html>

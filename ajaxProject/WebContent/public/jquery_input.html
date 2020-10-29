@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/jquery_input.html</title>
+    <style>
+        input {
+            display: block;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //table에 입력한 값 저장_<table>
+            $('#result').append($('<table>').attr('id', 'table').attr('border', '4px').
+                        attr('style', 'visibility:hidden'));
+            let name = ["제목", "내용", "작성자"];
+            let tr = $('<tr>');
+            for (n of name) {
+                tr.append($('<th>').html(n));
+            }
+            $('#table').append(tr);
+            $('#ok').on('click', function () {
+
+                // $('input').eq(0)
+                /*
+                버튼을 누르면 입력한 내용을 저장한다.
+                $('input[name="title"]').val('제목1');
+                $('input[name="content"]').val('내용1');
+                $('input[name="writer"]').val('작성자1');
+                */
+
+                // 버튼을 누르기 전 직접 입력한 내용을 저장한다.
+                let title = $('input[name="title"]').val();
+                let content = $('input[name="content"]').val();
+                let writer = $('input[name="writer"]').val();
+                console.log(title, content, writer);
+
+                // 직접 입력한 내용을 저장한 후, 화면에 li로 출력.
+                // let lis = $('<li>').html(title + " , " + content + " , " + writer);
+                // $('#result').append(lis);
+
+                // table에 입력한 값 저장_<tr>
+                let arr = [title, content, writer];
+
+                let tr2 = $('<tr>');
+                for (a of arr) {
+                    tr2.append($('<td>').html(a));
+
+                }
+                $('#table').append(tr2);
+                $('#result').append($('#table'));
+                $('#table').attr('style', 'visibility:visible');
+
+                $('input').val('');     // <input> 값을 초기화.                
+                // $('input[name="title"]').focus();   
+                $('input').eq(0).focus();   // <input> 첫번째 값에 커서올리기. 다른방법2가지.
+
+            })
+        });
+    </script>
+</head>
+
+<body>
+    <div id="input">
+        <input type="text" name="title">
+        <input type="text" name="content">
+        <input type="text" name="writer">
+        <button id="ok">저장</button>
+    </div>
+    <div id="result"></div>
+</body>
+
+</html>
