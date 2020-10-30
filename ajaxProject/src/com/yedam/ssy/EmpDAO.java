@@ -77,9 +77,9 @@ public class EmpDAO {
 	}
 	
 	/*DB로 query에 필요한 데이터 불러오기 -> GetEmpInfoServlet통해 web과 교환(return emp)*/
-	public Employee getEmpInfo(String empId) {
+	public EmployeeVO getEmpInfo(String empId) {
 		conn = DBconnect.getCon();
-		Employee emp = new Employee();
+		EmployeeVO emp = new EmployeeVO();
 		try {
 			psmt = conn.prepareStatement("select * from employees where employee_id = ?");
 			psmt.setString(1, empId);
@@ -110,15 +110,15 @@ public class EmpDAO {
 	}
 
 	/*DB로 employees table 의 필요한 데이터 불러오기 -> GetEmployeeListServ 통해 web 교환(return employees)*/
-	public List<Employee> getEmpList() {
-		List<Employee> employees = new ArrayList<>();
+	public List<EmployeeVO> getEmpList() {
+		List<EmployeeVO> employees = new ArrayList<>();
 		try {
 			conn = DBconnect.getCon();	// db연결
 			psmt = conn.prepareStatement("select * from employees order by 1");	// db연결고리->쿼리문실행
 
 			rs = psmt.executeQuery();
 			while (rs.next()) {	//  rs에 데이터 담을때까지 실행.
-				Employee emp = new Employee();
+				EmployeeVO emp = new EmployeeVO();
 				emp.setEmployeeId(rs.getInt("employee_id"));	// db데이터의 컬럼과 동일해야함. db data가져오는 것이므로.
 				emp.setFirstName(rs.getString("first_name"));	//first_name을 getString하여 rs에 담아 setString으로 가져와 emp에 담는다.
 				emp.setLastName(rs.getString("last_name"));

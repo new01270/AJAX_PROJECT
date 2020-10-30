@@ -31,7 +31,7 @@ public class GetMemberPerDeptServlet extends HttpServlet {
 //			System.out.println(key + ", " + members.get(key));
 			// [{"Administration":1},{"Sales":3},{"Executive":3},{"Accounting":2},{"IT":4},{"Shipping":6},{"Marketing":2}]
 			
-			json += "{\""+key+"\":"+members.get(key)+"}";
+			json += "{\""+key+"\":"+members.get(key)+"}";	//get(key) key의 값을 get하면 key의 value값을 가져온다는 메서드.
 			cnt++;
 			if(cnt != dataLength) {
 				json += ",";

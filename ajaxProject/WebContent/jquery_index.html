@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>public/jquery_index.html/p.320</title>
+<script src="public/jquery-3.5.1.min.js"></script>
+<script src="js/index.js"></script>
+<script>
+	$(document).ready(function() {
+		// ajax 호출 결과를 #result 에 보여줌.
+		$.ajax({
+			
+			url : 'GetEmployeeListServ',
+			success : showList,
+			error : function(reject) {
+				console.log(new Error('실행 중 에러 발생.')); // 에러 결과를 reject에 받아옴.
+			},
+			dataType : 'json'
+		})
+
+	});
+</script>
+<style>
+div#result {
+	display: inline-block;
+	width: 200px;
+	border: 3px solid lightblue;
+}
+
+div#detail {
+	position: absolute;
+	right: 0;
+	display: inline-block;
+	width: 250px;
+	border: 3px solid lightblue;
+}
+
+label {
+	display: inline-block;
+	width: 60px;
+}
+</style>
+
+</head>
+<body>
+	<h1>Hello, 서수연 입니다. jQuery.</h1>
+	<div id="result"></div>
+	<div id="detail">
+		<!-- label의 for는 input의 name을 가져온다. -->
+		<p>상세정보</p>
+		<label for="id">Id:</label> <input type="text" name="id" id="eid"value="100"><br> 
+		<label for="fName">FName:</label> <input type="text" name="fName" id="fName" value="100"><br> 
+		<label	for="lName">LName:</label> <input type="text" name="lName" id="lName" value="100"><br> 
+		<label for="email">Email:</label> <input type="text" name="email" id="email" value="100"><br> 
+		<label for="salary">Salary:</label> <input type="text" name="salary" id="salary" value="100"><br> 
+		<label for="jobId">jobId:</label><input type="text" name="jobId" id="jobId" value="100"><br>
+	</div>
+
+
+
+</body>
+</html>

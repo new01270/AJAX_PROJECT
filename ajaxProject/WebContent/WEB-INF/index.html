@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>public/index.html</title>
+<title>Insert title here</title>
 <style>
 div#result {
 	display: inline-block;
@@ -25,7 +25,7 @@ label {
 </style>
 </head>
 <body>
-	<h1>Hello, 서수연 입니다. JavaScript.</h1>
+	<h1>Hello, 서수연 입니다.</h1>
 	<div id="result"></div>
 	<div id="detail">
 		<!-- label의 for는 input의 name을 가져온다. -->
@@ -56,7 +56,7 @@ label {
 				//<li id="data[i].id"> + data[i].id + , + <a href=empInfo.jsp?id=data[i].id> + data[i].firstName</a></li>
 				for (let i = 0; i < data.length; i++) {
 					tag += "<li id=" + data[i].id + ">" + data[i].id
-							+ "=== <a href='empInfo.jsp?id=" + data[i].id + "'>"
+							+ ", <a href='empInfo.jsp?id=" + data[i].id + "'>"
 							+ data[i].firstName + "</a></li>";
 				}
 				tag += "</ul>";

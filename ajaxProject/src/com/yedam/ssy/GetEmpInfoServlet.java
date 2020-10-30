@@ -21,7 +21,7 @@ public class GetEmpInfoServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String empId = request.getParameter("id");	// ?뒤의 아이디
 		EmpDAO dao = new EmpDAO();
-		Employee emp = dao.getEmpInfo(empId);	// EmpDAO클래스의 getEmpInfo(매개변수).
+		EmployeeVO emp = dao.getEmpInfo(empId);	// EmpDAO클래스의 getEmpInfo(매개변수).
 		String json = "{\"id\":\"" + emp.getEmployeeId() 
         + "\", \"firstName\":\"" + emp.getFirstName()
         + "\", \"lastName\":\"" + emp.getLastName() 

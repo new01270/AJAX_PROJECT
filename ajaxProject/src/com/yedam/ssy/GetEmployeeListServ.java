@@ -22,19 +22,19 @@ public class GetEmployeeListServ extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		EmpDAO dao = new EmpDAO();	
-		List<Employee> list = dao.getEmpList();	// employee에 담은 data를 'list'인스턴스에 담아준다.
+		EmpDAO dao = new EmpDAO();	//클래스
+		List<EmployeeVO> list = dao.getEmpList();	// DAO에서 가져온 data를  VO'list'인스턴스에 담아준다.
 //		 [{"id":employee_id, "firstName":first_name,...},
 //		{"id":employee_id, "firstName":first_name,...},
 //		{"id":employee_id, "firstName":first_name,...},
 //		{"id":employee_id, "firstName":first_name,...},...]
 
 		//{"id":"3","first_name":"Pris","last_name":"Whittam"}
-		String json = "[";
+		String json = "[";	// set에 담아준 data->get으로 가져오기->json타입으로 수기변경.
 		int dataCnt = list.size();
 		int i = 0;
-		for (Employee emp : list) {
-			json += "{\"id\":\"" + emp.getEmployeeId()	// set으로 담아준 data->get으로 가져오기->json타입으로 수기변경.
+		for (EmployeeVO emp : list) {
+			json += "{\"id\":\"" + emp.getEmployeeId()	 
 	         + "\", \"firstName\":\"" + emp.getFirstName()
 	         + "\", \"lastName\":\"" + emp.getLastName() 
 	         + "\", \"email\":\"" + emp.getEmail()
