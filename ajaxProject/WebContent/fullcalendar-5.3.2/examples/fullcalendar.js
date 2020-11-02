@@ -55,7 +55,7 @@ xhtp.onreadystatechange = function() {
             allDay: false //arg.allDay
           });
 
-		// DB에 새로운 한건 등록  <- PutScheduleServlet
+		// DB에 새로운 한건 등록 
 		createSchedule(title, start, end);	// 위에서 var로 만들어준 매개변수받아서 한건 등록.
 
         }
@@ -74,7 +74,7 @@ xhtp.onreadystatechange = function() {
 		}
 		console.log(arg.event.title, start, arg.event.end);
 		
-		// DB에 한건 삭제-> DelScheduleServlet
+		// DB에 한건 삭제
 		deleteSchedule(arg.event.title, start);	
 		
         }

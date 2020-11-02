@@ -55,6 +55,7 @@ public class GetScheduleServlet extends HttpServlet {
 		
 		
 		response.getWriter().append(JSONArray.fromObject(jAry).toString());
+		// DB로 받은 data를 json type으로 변환해서 web에 response.
 		
 	}
 
