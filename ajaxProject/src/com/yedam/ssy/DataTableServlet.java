@@ -29,7 +29,7 @@ public class DataTableServlet extends HttpServlet {
 		EmpDAO dao = new EmpDAO();
 		List<EmployeeVO> employees = dao.getEmpList();
 		int dataCnt = employees.size();
-		String json = "{\"draw\":1, \"recordsTotal\": " + dataCnt + ", \recordsFiltered\": " + dataCnt + ",";
+		String json = "{\"draw\":1, \"recordsTotal\": " + dataCnt + ", \"recordsFiltered\": " + dataCnt + ",";
 
 		json += "\"data\": [";
 
@@ -37,16 +37,19 @@ public class DataTableServlet extends HttpServlet {
 			json += "[";
 			// []안의 값
 			json += employees.get(i).getEmployeeId() + ", " 
-					+ employees.get(i).getFirstName() + ", "
-					+ employees.get(i).getEmail() + ", " 
-					+ employees.get(i).getPhoneNumber() + ", "
-					+ employees.get(i).getHireDate() + ", " 
+					+ "\"" + employees.get(i).getFirstName() + "\", "
+					+ "\"" +employees.get(i).getEmail() + "\", " 
+					+ "\"" +employees.get(i).getPhoneNumber() + "\", "
+					+ "\"" +employees.get(i).getHireDate() + "\", " 
 					+ employees.get(i).getSalary();
 			json += "]";
+			if((i+1)!=dataCnt)
+				json+= ",";
 		}
 		
 
-		json += "]}";
+		
+	json += "]}";
 		
 		response.getWriter().append(json);	// 화면 출력
 		

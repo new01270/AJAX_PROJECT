@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>datatable/datatable.html</title>
+<script src='../public/jquery-3.5.1.min.js'></script>
+<!-- jquery lib -->
+<script src='//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js'></script>
+<link rel="stylesheet"
+	href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css">
+<script src="data.js"></script>
+<!-- data.js불러올떄 -->
+<script>
+	$(document).ready(function() {
+		var table = $('#example').DataTable({
+			"processing" : true,
+			"serverSide" : true,
+			"ajax" : '../DataTableServletJSON'
+		});
+
+
+		$('#example tbody').on('click', 'td', function() {
+			console.log($(this));
+			table
+				.row($(this).parents('tr'))
+				.remove()
+				.draw();
+		});
+	});
+</script>
+</head>
+<body>
+	<table id="example" class="display" style="width: 100%">
+		<thead>
+			<tr>
+				<th>사원번호</th>
+				<th>이름</th>
+				<th>이메일</th>
+				<th>전화번호</th>
+				<th>입사일자</th>
+				<th>급여</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<th>사원번호</th>
+				<th>이름</th>
+				<th>이메일</th>
+				<th>전화번호</th>
+				<th>입사일자</th>
+				<th>급여</th>
+			</tr>
+		</tfoot>
+	</table>
+</body>
+</html>
