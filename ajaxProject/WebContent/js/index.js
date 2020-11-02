@@ -24,7 +24,7 @@ function showList(result) {
 		localStorage.setItem('lNm'+item.id, item.lastName);
 		localStorage.setItem('eml'+item.id, item.email);
 		localStorage.setItem('sal'+item.id, item.salary);
-		localStorage.setItem('jid'+item.id, item.jobId);//######eid100 = JobId
+		localStorage.setItem('jid'+item.id, item.jobId);//######jid100 = JobId
 		
 	});	
 	$('#result').append(ul);
@@ -43,15 +43,15 @@ function mouseOverCallback(event) {
 	let lNm = localStorage.getItem('lNm'+event.currentTarget.id);
 	let eml= localStorage.getItem('eml'+event.currentTarget.id);
 	let sal= localStorage.getItem('sal'+event.currentTarget.id);
-	let jid= localStorage.getItem('jid'+event.currentTarget.id);//######담은 jobId let에 담음
-	//eid
+	let jid= localStorage.getItem('jid'+event.currentTarget.id);//######담은 jobId를 currentTarget.id로 식별해, jid로 불러온뒤, let에 담음.
+	
 	$(this).css('background','lightblue');	//this: liTag
 	$('#eid').val(eid);
 	$('#fName').val(fNm);
 	$('#lName').val(lNm);
 	$('#email').val(eml);
 	$('#salary').val(sal);
-	$('#jobId').val(jid);
+	$('#jobId').val(jid); // storage에서 가져온jid값을 value에 넣어준다.
 }
 
 function mouseoverFunc() {
