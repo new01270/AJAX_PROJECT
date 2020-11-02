@@ -1,6 +1,6 @@
 
 function showList(result) {
-	let data = result;
+	let data = result;	//result: servlet에서 받아온 값을 가져오는 문법형식으로 result사용 <-> reject
 	console.log(data);
 	let ul = $('<ul />');		
 	data.forEach(function(item, idx) {	//item: {...}, item.id: {...}안의 {id..}값.
