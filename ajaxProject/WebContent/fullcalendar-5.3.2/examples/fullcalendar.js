@@ -6,50 +6,25 @@ PAGE생성과정
 3. js파일에 events option: js의 object type으로 할당.
 */
 
+/*
+GetScheduleServlet >>> DB에서 받아온 data를 json형태로 변환 > web에 전송 
+> html에서 web data를 받아와 events에 입력.
+
+PutScheduleServlet >>> web에서 선택하여 title,start,end값을 client가 입력 
+> html의 createSchedule funk가 읽어와 servlet에 세개의 파라미터를 던져주고, 
+servlet에서 받아온 파라미터를 DB와 연동하여 데이터를 추가한다.
+
+DelScheduleServlet >>> web에서 delete하면 title, start 값을 client가 입력라여 전송 
+> html의 deleteSchedule Func를 호출하여 받을 파라미터 값을 servlet에 보내주어 
+DB와 연동해 데이터를 삭제한다.
+*/
+
 let events = [];
 var calendar;
 
-// modal javascript.
-function showModal(args) {
-	var modal = document.getElementById("myModal");
-	modal.style.display = "block";
-	var span = document.getElementsByClassName("close")[0]; // 엑스박스
-	span.onclick = function () {
-		modal.style.display = "none";
-	}
-	window.onclick = function (event) {
-		if (event.target == modal) {
-			modal.style.display = "none";
-		}
-	}
-
-	var saveBtn = document.getElementById('saveBtn');
-	saveBtn.onclick = function () {
-		let title = document.getElementById('title').value;
-		let start = document.getElementById('startDate').value;
-		let end = document.getElementById('endDate').value;
-		console.log(title, start, end);
-		if (title) {
-			calendar.addEvent({
-				title: title,
-				start: start, //arg.start,
-				end: end, //arg.end,
-				allDay: false //arg.allDay
-			});
-
-			// DB에 새로운 한건 등록 			
-			createSchedule(title, start, end); // 위에서 let로 만들어준 매개변수받아서 DB에 한건 등록.
-
-		}
-		calendar.unselect()
-	}
-}//end of showModal.
-
 //순서가 맞지 않아 events가 호출되지 않아서 function 만들어줌.
-
 document.addEventListener('DOMContentLoaded', function () {
 	var calendarEl = document.getElementById('calendar');
-
 
 	// events에 값을 할당함.<-GetScheduleServlet 에 뿌려진 data를 가져와서.  => 그게 바 로 xhtp.response.
 	let xhtp = new XMLHttpRequest();
@@ -84,20 +59,17 @@ document.addEventListener('DOMContentLoaded', function () {
 					// var end = prompt('종료일정:');
 
 					showModal(arg); // modal 창 열어 값 입력하는 method. argument 매개변수 지정.
-
-					if (title) {
+					/*if (title) {
 						calendar.addEvent({
 							title: title,
 							start: arg.start, //start 
 							end: arg.end,//end
 							allDay: arg.allDay //false
 						});
-
 						// DB에 새로운 한건 등록 
 						// createSchedule(title, start, end); // 위에서 var로 만들어준 매개변수받아서 한건 등록.
-
 					}
-					calendar.unselect()
+					calendar.unselect()*/
 				},
 
 				// 삭제events.
@@ -129,10 +101,52 @@ document.addEventListener('DOMContentLoaded', function () {
 	xhtp.open('get', '../../GetScheduleServlet'); // 두 파일 경로 맞춰주기.
 	xhtp.send();
 
-
 });
 
+// modal javascript.
+function showModal(args) {
+	var modal = document.getElementById("myModal");
+	modal.style.display = "block";
 
+	var span = document.getElementsByClassName("close")[0]; // 엑스박스
+	span.onclick = function () {
+		modal.style.display = "none";
+	}
+	window.onclick = function (event) {
+		if (event.target == modal) {
+			modal.style.display = "none";
+		}
+	}
+
+	let startDate = document.getElementById('startDate');
+	startDate.value = args.startStr;
+
+	let endDate = document.getElementById('endDate');
+	endDate.setAttribute('min',startDate.value);
+	
+
+	var saveBtn = document.getElementById('saveBtn');
+	saveBtn.onclick = function () {
+		let title = document.getElementById('title').value;
+		let start = document.getElementById('startDate').value;
+		let end = document.getElementById('endDate').value;
+		console.log(title, start, end);
+
+		if (title) {
+			calendar.addEvent({
+				title: title,
+				start: start, //arg.start,
+				end: end, //arg.end,
+				allDay: false //arg.allDay
+			});
+
+			// DB에 새로운 한건 등록 			
+			createSchedule(title, start, end); // 위에서 let로 만들어준 매개변수받아서 DB에 한건 등록.
+		}
+		calendar.unselect()
+	}
+
+} //end of showModal.
 
 
 function createSchedule(v1, v2, v3) {
