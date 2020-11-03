@@ -117,10 +117,12 @@ function showModal(args) {
 			modal.style.display = "none";
 		}
 	}
-
+	
+	// 달력에서 날자를 선택했을때, 모달 창의 start날짜를 지정 값으로 나오게하기.
 	let startDate = document.getElementById('startDate');
 	startDate.value = args.startStr;
-
+	
+	// 달력에서 날짜를 선택했을 때, 모달 창의 end날짜를 start날짜 이전으로 지정하지 못하게 하기.
 	let endDate = document.getElementById('endDate');
 	endDate.setAttribute('min',startDate.value);
 	
