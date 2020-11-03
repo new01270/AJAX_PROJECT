@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 					// var title = prompt('스케쥴명:');
 					// var start = prompt('시작일정:');
 					// var end = prompt('종료일정:');
-
+					console.log(arg);
 					showModal(arg); // modal 창 열어 값 입력하는 method. argument 매개변수 지정.
 					/*if (title) {
 						calendar.addEvent({
