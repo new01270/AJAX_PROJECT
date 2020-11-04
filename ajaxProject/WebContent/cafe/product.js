@@ -5,9 +5,10 @@
 $.ajax({
 	url: '../GetProdListServlet',
 	dataType: 'json',
-	data: {'category':categoryss}, // 변수명category:넘거오는 진짜 카테고리명
+	data: {'category':categorys}, // 변수명category:넘어오는 진짜 카테고리명
 	success: function (result) {
-		console.log(categoryss);	// category.jsp 에서 변수를 만들어 가져옴.
+		
+		console.log(categorys);	// category.jsp 에서 변수를 만들어 가져옴.
 
 		for (obj of result) {
 			createRow(obj);

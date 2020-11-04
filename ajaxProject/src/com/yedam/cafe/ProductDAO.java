@@ -37,6 +37,7 @@ public class ProductDAO {
 	ResultSet rs;
 	String sql;
 	
+	// itemNo가 매개변수로 넘어왔을 때, 해당하는 itemNo의 컬럼값을 한 row씩 읽어 prd에 담아 반환킨다.
 	public ProductVO getProduct(String itemNo) {
 		conn = DBconnect.getCon();
 		ProductVO prd = new ProductVO();
@@ -49,7 +50,7 @@ public class ProductDAO {
 				prd.setItemNo(rs.getString("item_no"));
 				prd.setItemName(rs.getString("item_name"));
 				prd.setPrice(rs.getInt("price"));
-				prd.setItemNo(rs.getString("item_desc"));
+				prd.setItemDesc(rs.getString("item_desc"));
 				prd.setLikeIt(rs.getDouble("like_it"));
 				prd.setCategory(rs.getString("category"));
 				prd.setItemImg(rs.getString("item_img"));				
@@ -96,11 +97,15 @@ public class ProductDAO {
 	public List<ProductVO> getProductList(String category) {
 		conn = DBconnect.getCon();
 		sql = "select * from product where category = nvl(\'" + category + "\', category)";
-		// category값이 null이면 catogory라고 하는필드를 같이 조회 값이없으면 전체 데이터 조회.
-		//select * from product	where category=nvl('dutch', category); -> dutch가  null이면  category 전체 조회.
+		/* select * from product where category=nvl('dutch', category); 
+		   select * from product where category(디비컬럼명)=nvl('dutch(웹페이지에서 선텍)', category(***설명)); 
+			-> dutch가  null이면  category 전체 조회. 
+		*** GetProdListServlet 에서 request.getParameter("category")
+		*/
 		
 		/*
-		 * rs.next()는 한 행을 읽을때, VO객체와 일치하는 컬럼의 값을 가져온다(rs.getString("item_no")).... while만족 할때까지 row를 읽어와 값을 List인  products 에 넣는다.
+		 * rs.next()는 한 행을 읽을때, VO객체와 일치하는 컬럼의 값을 가져온다(rs.getString("item_no")).... 
+		 * while만족 할때까지 row를 읽어와 값을 List인  products 에 넣는다.
 		 */
 		List<ProductVO> products = new ArrayList<>(); //ProductVO의 객체를 리스트에 담는다.
 		try {

@@ -18,11 +18,11 @@
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
 	<%
-		String categorys = request.getParameter("category");
+		String category = request.getParameter("category");
 	%>
 	<script>
-		console.log("<%=categorys%>");
-		let categoryss = "<%=categorys%>";
+		console.log("<%=category%>");
+		let categorys = "<%=category%>";
 	</script>
 
 </head>

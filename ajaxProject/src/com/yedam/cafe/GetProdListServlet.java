@@ -26,7 +26,7 @@ public class GetProdListServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		String cat = request.getParameter("category");	//cat:index통해서 넘어오는 카테고리명;
+		String cat = request.getParameter("category");	//cat:index.html 통해서 넘어오는 카테고리명;
 		ProductDAO dao = new ProductDAO();
 		List<ProductVO> list = dao.getProductList(cat);
 

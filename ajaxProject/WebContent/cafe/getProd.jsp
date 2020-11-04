@@ -20,19 +20,19 @@ $.ajax({
 		selectFunc(result[0]);
 				
 	}
+
 })
+
+// website에서 item_no를 받아와->servlet에 넘겨 해당되는 sql구문의 value들을 가져와->json배열에 담아 다시 webpage에 보여준다.
 
 function selectFunc(data) {
 	let div1 = $('<div />').attr('class', 'col-lg-4 col-md-6 mb-4');
 	let div2 = $('<div />').attr('class', 'card h-100');
 	let div2_a = $('<a />').attr('href', 'getProd.jsp?item_no=' + data.itemNo);
-	let img = $('<img />').attr({
-		'class': 'card-img-top',
-		'src': '../images/'+data.itemImg
-	}); // attr두번써도됨.
+	let img = $('<img />').attr('src', '../images/'+data.itemImg);
 	let div2_div = $('<div />').attr('class', 'card-body');
 	let h4 = $('<h4 />').attr('class', 'card-title');
-	let h4_a = $('<a />').attr('href', '#').html(data.itemName).attr('style','color:brown');
+	let h4_a = $('<a />').html(data.itemName).attr('style','color:brown');
 	let prices = new Intl.NumberFormat('ko-KR', {style: 'currency', currency: 'KRW'}).format(data.price);
 	let h5 = $('<h5 />').html(prices);
 	let p = $('<p />').attr('class', 'card-text').html(data.itemDesc);
@@ -66,7 +66,7 @@ function selectFunc(data) {
 
 </head>
 
-<body id="bdy">
+<body id="bdy" align='center'>
 	
 
 	

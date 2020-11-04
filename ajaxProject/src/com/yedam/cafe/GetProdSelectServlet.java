@@ -33,6 +33,7 @@ public class GetProdSelectServlet extends HttpServlet {
 		ProductDAO dao = new ProductDAO();
 		ProductVO prd = dao.getProduct(item);
 
+		// 선택된 item_no의 컬럼값을 json type의 배열에 담아서 response해줌.
 		JSONArray jAry = new JSONArray();
 
 		jAry.add(prd);

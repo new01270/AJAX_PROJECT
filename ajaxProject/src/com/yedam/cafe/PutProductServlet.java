@@ -26,7 +26,7 @@ public class PutProductServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		
-		// request: webpage에서 넘어온 파라미터 값을 String에 담아주겠다.
+		// request: webpage에서 넘어온 "파라미터 값"을 String에 담아주겠다.
 		String itemNo = request.getParameter("itemNo"); 
 		String itemName = request.getParameter("itemName"); 
 		String price = request.getParameter("price"); 
@@ -38,7 +38,7 @@ public class PutProductServlet extends HttpServlet {
 		ProductVO prd = new ProductVO();
 		prd.setItemNo(itemNo);
 		prd.setItemName(itemName);
-		prd.setPrice(Integer.parseInt(price));	// string -> int 파싱
+		prd.setPrice(Integer.parseInt(price));	// string -> int type 파싱
 		prd.setItemDesc(itemDesc);
 		prd.setLikeIt(Double.parseDouble(likeIt));	// string -> double type 파싱
 		prd.setCategory(category);;
