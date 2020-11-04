@@ -18,6 +18,8 @@ SELECT * FROM product;
 insert into product values('bean_01', '케냐원두', 4000, '케냐에서 어제 갓 따온 원두', '4.5', 'bean', '케냐.jpg');
 insert into product values('bean_02', '브라질원두', 5000, '브라질에서 어제 갓 따온 원두', '4.0', 'bean', '브라질.jpg');
 insert into product values('bean_03', '과테말라원두', 6000, '과테말라에서 어제 갓 따온 원두', '3.5', 'bean', '과테말라.jpg');
+
+delete product where item_no='bean_04';
  */
 
 import java.sql.Connection;
@@ -34,6 +36,36 @@ public class ProductDAO {
 	PreparedStatement psmt;
 	ResultSet rs;
 	String sql;
+	
+	public ProductVO getProduct(String itemNo) {
+		conn = DBconnect.getCon();
+		ProductVO prd = new ProductVO();
+		sql = "select * from product where item_no=?";
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, itemNo);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				prd.setItemNo(rs.getString("item_no"));
+				prd.setItemName(rs.getString("item_name"));
+				prd.setPrice(rs.getInt("price"));
+				prd.setItemNo(rs.getString("item_desc"));
+				prd.setLikeIt(rs.getDouble("like_it"));
+				prd.setCategory(rs.getString("category"));
+				prd.setItemImg(rs.getString("item_img"));				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return prd;
+	}
 	
 	public void insertProduct(ProductVO prd) {
 		conn = DBconnect.getCon();
@@ -61,9 +93,11 @@ public class ProductDAO {
 		}
 	}
 
-	public List<ProductVO> getProductList() {
+	public List<ProductVO> getProductList(String category) {
 		conn = DBconnect.getCon();
-		sql = "select * from product order by 1";
+		sql = "select * from product where category = nvl(\'" + category + "\', category)";
+		// category값이 null이면 catogory라고 하는필드를 같이 조회 값이없으면 전체 데이터 조회.
+		//select * from product	where category=nvl('dutch', category); -> dutch가  null이면  category 전체 조회.
 		
 		/*
 		 * rs.next()는 한 행을 읽을때, VO객체와 일치하는 컬럼의 값을 가져온다(rs.getString("item_no")).... while만족 할때까지 row를 읽어와 값을 List인  products 에 넣는다.

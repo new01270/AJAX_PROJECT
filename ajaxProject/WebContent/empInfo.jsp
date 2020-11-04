@@ -50,9 +50,7 @@ div#detail>button {
 	
 	<label for="hireD">HireDate</label>
 	<input type="text" id="hireD" value="" ><br>
-	
-	
-	
+		
 	<label for="salary">Salary</label>
 	<input type="text" id="salary" value="" ><br>
 	

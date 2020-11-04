@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,9 +17,14 @@
 
 	<!-- Custom styles for this template -->
 	<link href="css/shop-homepage.css" rel="stylesheet">
+	<%
+		String categorys = request.getParameter("category");
+	%>
 	<script>
-		let categoryss = null;
+		console.log("<%=categorys%>");
+		let categoryss = "<%=categorys%>";
 	</script>
+
 </head>
 
 <body>
@@ -32,12 +39,12 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="index.html">Home<span class="sr-only">(current)</span>
-						</a>
-					</li>
+					<li class="nav-item active"><a class="nav-link" href="index.html">Home
+							<span class="sr-only">(current)</span>
+						</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="product.html">MenuAdd</a></li>
+					<li class="nav-item"><a class="nav-link" href="product.html">Services</a>
+					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
 				</ul>

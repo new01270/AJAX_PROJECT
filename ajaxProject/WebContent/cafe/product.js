@@ -5,8 +5,9 @@
 $.ajax({
 	url: '../GetProdListServlet',
 	dataType: 'json',
+	data: {'category':categoryss}, // 변수명category:넘거오는 진짜 카테고리명
 	success: function (result) {
-		console.log(result);
+		console.log(categoryss);	// category.jsp 에서 변수를 만들어 가져옴.
 
 		for (obj of result) {
 			createRow(obj);
@@ -38,10 +39,10 @@ $.ajax({
 function createRow(obj) {
 	let div1 = $('<div />').attr('class', 'col-lg-4 col-md-6 mb-4');
 	let div2 = $('<div />').attr('class', 'card h-100');
-	let div2_a = $('<a />').attr('href', '#');
+	let div2_a = $('<a />').attr('href', 'getProd.jsp?item_no=' + obj.itemNo);
 	let img = $('<img />').attr({
 		'class': 'card-img-top',
-		'src': '../images/bean.png'
+		'src': '../images/'+obj.itemImg
 	}); // attr두번써도됨.
 	let div2_div = $('<div />').attr('class', 'card-body');
 	let h4 = $('<h4 />').attr('class', 'card-title');
@@ -72,4 +73,6 @@ function createRow(obj) {
 	h4.append(h4_a);
 	div2_div2.append(small);
 	$('#data').append(div1);
+	
+	//	$(this).parent().removeClass('active');
 }

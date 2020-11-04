@@ -11,31 +11,33 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-@WebServlet("/GetProdListServlet")
-public class GetProdListServlet extends HttpServlet {
+// 메인에서 사진 선택했을 떄, 띄워지는 창에서 불러오는 정보.
+
+@WebServlet("/GetProdSelectServlet")
+public class GetProdSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public GetProdListServlet() {
+	public GetProdSelectServlet() {
 		super();
-
+		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// 한글 깨짐 현상 보완.
-		response.setCharacterEncoding("UTF-8");
+
+		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		
-		String cat = request.getParameter("category");	//cat:index통해서 넘어오는 카테고리명;
+
+		String item = request.getParameter("item_no");
 		ProductDAO dao = new ProductDAO();
-		List<ProductVO> list = dao.getProductList(cat);
+		ProductVO prd = dao.getProduct(item);
 
 		JSONArray jAry = new JSONArray();
-		for (ProductVO prod : list) {
-			jAry.add(prod);
-		}
-		
-		response.getWriter().append(JSONArray.fromObject(jAry).toString()); //string type이어야 해서 jAray를 입력 한 후, toString().
+
+		jAry.add(prd);
+
+		response.getWriter().append(JSONArray.fromObject(jAry).toString());
 
 	}
 
