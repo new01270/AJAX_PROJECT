@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/sample_clone.html</title>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: 'MOCK_DATA.json',
+                dataType: 'json',
+                success: function (result) {
+
+                    console.log(result);
+                    selectRemove(result);
+                }
+            });
+
+            /*
+                        let xhtp = new XMLHttpRequest();
+                        xhtp.onreadystatechange = function () {
+                            if (xhtp.readyState == 4 && xhtp.status == 200) {
+                                let data = JSON.parse(xhtp.responseText);
+                                console.log(data);
+                                selectRemove(data);
+                            }
+                        }
+                        xhtp.open('get', 'MOCK_DATA.json');
+                        xhtp.send();
+                    }) // end of ready
+            */
+
+            let selectRemove = function (data) {
+
+                let button = $('<button />').attr('id', 'selbtn').html('선택삭제');
+                $('#body').append(button);
+
+
+                let table = $('<table />').attr('border', '3px');
+                let tr = $('<tr />');
+                let th = $('<th />');
+                let input_ra = $('<input />').attr('type', 'checkbox').attr('id', 'allcheck');
+                tr.append(th);
+                th.append(input_ra);
+
+                for (a in data[0]) {
+                    let th = $('<th />').html(a);
+                    tr.append(th);
+                }
+                table.append(tr);
+
+                for (d of data) {
+                    let tr = $('<tr />').attr('class', 'seltr');
+                    let td = $('<td />');
+                    let input_ra = $('<input />').attr({
+                        'type': 'checkbox',
+                        'class': 'seldel'
+                    });
+                    td.append(input_ra);
+                    tr.append(td);
+
+                    for (a in d) {
+                        let td = $('<td />');
+                        td.html(d[a]);
+                        tr.append(td);
+                    }
+                    let td2 = $('<td />');
+                    let input_bu = $('<button />').attr({
+                        'type': 'button',
+                        'class': 'copy'
+                    }).html('복사');
+                    
+                    td2.append(input_bu);
+                    tr.append(td2);
+                    table.append(tr);
+                }
+
+                let th2 = $('<th />').html('기능');
+                tr.append(th2);
+
+                $('#body').append(table);
+
+
+
+                $('#selbtn').click(function () {
+                    console.log($('input[type="checkbox"]:checked'));
+
+                    $('.seldel:checked').parent().parent().remove();
+                })
+
+                $('#allcheck').click(function () {
+                    if ($('#allcheck').prop('checked')) {
+                        $('input[type="checkbox').prop('checked', true);
+                    } else {
+                        $('input[type="checkbox').prop('checked', false);
+                    }
+
+                })
+
+                $('.copy').on('click', function(){
+                    let trcp = $(this).parent().parent();
+                    trcp.after($(this).parent().parent().clone(true));  // clone의 옵션- default=false 값만 복사 <-> true는 이벤트+값 
+                })
+
+                // 전체선택이 되어 있을 떄, 하나의 체크박스가 해제되면 전체선택도 해제.
+                let temp = $('.seldel');
+                for (let i = 0; i < temp.length; i++) {
+                    $(temp[i]).on('click', function () {
+                        if (!$(temp[i]).prop('checked')) {
+                            $('#allcheck').prop('checked', false)
+                        }
+
+                        // 각 체크박스가 모두 선택되면 전체선택 박스가 자동 체크
+                        let a = true;
+                        for (let i = 0; i < temp.length; i++) {
+                            if (!$(temp[i]).prop('checked')) {
+                                a = false;
+                            }
+                        }
+
+                        if (a) {
+                            $('#allcheck').prop('checked', true)
+                        }
+                    })
+                }
+
+
+            }; // end of selFunc
+        }); // end of ready
+
+
+        
+    </script>
+</head>
+
+<body id="body">
+
+</body>
+
+</html>
