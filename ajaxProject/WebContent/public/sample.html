@@ -17,6 +17,8 @@
                     console.log(result);
                     selectRemove(result);
                 }
+
+
             });
 
             /*
@@ -62,9 +64,9 @@
                     td.append(input_ra);
                     tr.append(td);
 
-                    for (a in d) {  // 배열의 오브젝트의 배열명
+                    for (a in d) {  // 한 오브젝트의 배열명
                         let td = $('<td />');
-                        td.html(d[a]);  
+                        td.html(d[a]);  // 한 오브젝트의 배열값
                         tr.append(td);
                     }
                     let td2 = $('<td />');
@@ -82,26 +84,29 @@
 
                 $('#body').append(table);
 
+                //한줄 삭제
                 $('.del').click(function () {
                     console.log($(this).parent().parent());
                     $(this).parent().parent().remove();
                 })
 
+                //선택삭제
                 $('#selck').click(function () {
                     console.log($('input[type="checkbox"]:checked'));
 
                     $('.seldel:checked').parent().parent().remove();
                 })
 
+                //전체 선택 기능
                 $('#allcheck').click(function () {
                     if ($('#allcheck').prop('checked')) {
-                        $('input[type="checkbox').prop('checked', true)
+                        $('input[type="checkbox"]').prop('checked', true)
                     } else {
-                        $('input[type="checkbox').prop('checked', false);
+                        $('input[type="checkbox"]').prop('checked', false);
                     }
                 })
 
-                // 전체선택이 되어 있을 떄, 하나의 체크박스가 해제되면 전체선택도 해제.
+                // 하나의 체크박스가 해제되면 전체선택도 해제.
                 let temp = $('.seldel');
                 for (let i = 0; i < temp.length; i++) {
                     $(temp[i]).on('click', function () {
