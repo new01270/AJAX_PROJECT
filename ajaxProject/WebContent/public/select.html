@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>public/select.html</title>
+    <script src="jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //$('#allcheck').prop('checked', false)  참고
+
+
+            // 플러스 버튼을 누르면 left to right
+            $('#ltr').click(function () {
+                console.log('ㅓㅓㅓ');
+                console.log($('#plus option:selected'))
+
+                let sel = $('#plus option:selected'); // 선택 option text값 불러와서
+                $('#minus').append(sel); // 붙여준다
+            })
+
+            $('#rtl').click(function () {
+                console.log('우우우아아');
+                console.log($('#minus option:selected'))
+
+                let sel = $('#minus option:selected');
+                $('#plus').append(sel);
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <select id="plus" size=40>
+        <option value="1">Option1</option>
+        <option value="2">Option2</option>
+        <option value="3">Option3</option>
+        <option value="4">Option4</option>
+        <option value="5">Option5</option>
+    </select>
+
+    <button id="ltr">+</button>
+    <button id="rtl">-</button>
+
+    <select id="minus" size=40>
+        <option value="6">Option6</option>
+        <option value="7">Option7</option>
+        <option value="8">Option8</option>
+        <option value="9">Option9</option>
+        <option value="0">Option10</option>
+    </select>
+</body>
+
+</html>
