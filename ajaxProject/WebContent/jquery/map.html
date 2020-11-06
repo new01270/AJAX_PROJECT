@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/map.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#score').on('change', function () {
+
+                $.ajax({
+                    url: 'members.json',
+                    dataType: 'json',
+                    success: scoreData
+
+                })
+
+                function scoreData(result) {
+                    //내가 선택한 점수 단위
+                    let grade = $('#score').val();
+
+                    let data = $.grep(result, (value, idx) => {
+                        if (grade == 100) {
+                            return value.score == grade;
+                        } else if (grade <= 59) {
+                            return value.score <= grade;
+                        } else {
+                            return value.score <= grade && value.score > grade - 10;
+                        }
+
+                    }).map((value, idx) => {
+                        return value.first_name + " " + value.last_name + "," + value.score;
+                    })
+
+                    $('#show').empty();
+                    $.each(data, function (idx, value) {
+                        console.log(value);
+                        $('#show').append($('<p />').html(value));
+                    })
+
+                }
+            })
+
+        }) //end of ready
+    </script>
+</head>
+
+<body>
+    <select name="" id="score">
+        <option value="59">60미만</option>
+        <option value="69">60</option>
+        <option value="79">70</option>
+        <option value="89">80</option>
+        <option value="99">90</option>
+        <option value="100">100</option>
+    </select>
+    <div id="show"></div>
+</body>
+
+</html>
