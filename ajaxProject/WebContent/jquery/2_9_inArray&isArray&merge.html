@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_9_inArray&isArray&merge.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        /*
+        $.inArray(data, Array, start index)
+        $.isArray(object)
+        $.merge(Array1, Array2)
+        */
+
+        $(function () {
+
+            var arr1 = ["서울","대전","부산","전주"];
+            var arr2 = ["한국","미국","아일랜드","캐나다"];
+            var obj = {
+                "name":"정부장",
+                "area":"서울"
+            }
+
+            //$.inArray 인덱스값반환
+            var idxNum = $.inArray("부산", arr1);   
+            console.log(idxNum);    //결과: 3
+
+            //$.isArray 
+            var okArray1 = $.isArray(arr1);
+            var okArray2 = $.isArray(obj);
+            console.log(okArray1);  // 배열이라서 true.
+            console.log(okArray2);  // 배열 아니라서 false.
+
+            //$.merge
+            $.merge(arr2,arr1);
+            console.log(arr2);  
+            //결과: ["한국", "미국", "아일랜드", "캐나다", "서울", "대전", "부산", "전주"]
+            $.merge(arr1, arr2);
+            console.log(arr1);  
+            //결과: ["서울", "대전", "부산", "전주", "한국", "미국", "아일랜드", "캐나다", "서울", "대전", "부산", "전주"]
+            console.log(arr2);
+            //결과: ["한국", "미국", "아일랜드", "캐나다", "서울", "대전", "부산", "전주"]
+
+        })  //end of ready
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

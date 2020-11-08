@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/2_12_attrStatus.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        /*
+        $("요소선택":[visible | hidden]");
+        $(":selected")
+        $(":checked")
+        */
+
+        $(function () {
+            $('#wrap p:hidden').css({
+                "display": "block",
+                "background": "pink"
+            })
+
+            var z1 = $("#zone1 :selected").val(); //value값 출력: opt2
+            console.log(z1);
+            var z2 = $("#zone1 :selected").text(); //text값 출력: 옵션2셀렉티드
+            console.log(z2);
+
+            var z4 = $("#zone2 :checked").val();
+            console.log(z4);
+            var z5 = $("#zone2 :checked").text();
+            console.log(z5); // 오류는 없는데 출력 값이 없음.
+
+            var z6 = $("#zone3 :checked").val();
+            console.log(z6);
+            var z7 = $("#zone3 :checked").text();
+            console.log(z7); // 오류는 없는데 출력 값이 없음.
+
+
+        }) //end of ready
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <p>내용1</p>
+        <p style="display: none;">내용2 none</p>
+        <p>내용3</p>
+    </div>
+    <form action="#">
+        <p id="zone1">
+            <select name="course" id="course">
+                <option value="opt1">옵션1</option>
+                <option value="opt2" selected>옵션2 셀렉티드</option>
+                <option value="opt3">옵션3</option>
+            </select>
+        </p>
+        <p id="zone2">
+            <input type="checkbox" name="hobby1" value="독서" id="">독서
+            <input type="checkbox" name="hobby2" value="자전거">자전거
+            <input type="checkbox" name="hobby3" value="등산" checked>등산 체크드
+        </p>
+        <p id="zone3">
+            <input type="radio" name="gender" value="male">남성
+            <input type="radio" name="gender" value="female" checked>여성 체크드
+        </p>
+    </form>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/2_8_map&grep.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        /*
+        $.map(Array, function(매개변수1:객체, 매개변수2:index) {
+            return 데이터;
+        });
+
+        $.grep(Array, function(매개변수1:객체, 매개변수2:index) {
+            return [true | false];
+        });
+        */
+
+        $(function () {
+            var arr1 = [{
+                "area": "서울",
+                "name": "이대리"
+            }, {
+                "area": "부산",
+                "name": "김과장"
+            }, {
+                "area": "대전",
+                "name": "홍과장"
+            }, {
+                "area": "서울",
+                "name": "빅마마"
+            }]
+            
+            // $.map 반환값으로 새로운 배열 객체 반환.
+            var arr2 = $.map(arr1, function(a,b) {
+                if(a.area == "서울") {
+                    return a;   // 결과: (2) [{…}, {…}]
+                    // return b;   // 결과: (2) [0, 3]
+                }
+            })
+            console.log(arr2);
+            console.log("map data END")
+
+            // $.grep 
+            var arr3 = $.grep(arr1, function(c,d) {
+                if(c.area == "부산") {  // c.area="부산" 으로하면 area값을 바꿔버림
+                    return true;    //결괴: (1) [{…}]
+                } else {
+                    return false;
+                }
+            })
+            console.log(arr3)
+            console.log("grep data END")
+
+
+        }) //end of ready
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
