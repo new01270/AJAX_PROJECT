@@ -137,7 +137,7 @@ public class CommentsDAO extends DAO {
 		PreparedStatement pstmtIdUpdate = null;
 		PreparedStatement pstmtCommentInsert = null;
 		int nextId = 0;
-		System.out.println(bean);
+		System.out.println("bean: " + bean);
 		try {
 			connect();
 			conn.setAutoCommit(false); // 트랜잭션 처리
@@ -160,11 +160,13 @@ public class CommentsDAO extends DAO {
 			// pstmtCommentInsert.setString(4, "1");
 			pstmtCommentInsert.executeUpdate();
 			conn.commit(); // 커밋
+			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("id", nextId);
 			map.put("name", bean.getName());
 			map.put("content", bean.getContent());
 			return map;
+			
 		} catch (Throwable e) {
 			e.printStackTrace();
 			try {

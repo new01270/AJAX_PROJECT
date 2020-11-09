@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>comments/comments_jquery.html</title>
     <script src="../js/jquery-3.5.1.min.js"></script>
     <script>
-        
+        $(function () {
+
+            $('<div/>').attr('id', 'commentsList'); //등록화면
+            let divAdd = $('<div/>').attr('id', 'commentsAdd'); //수정화면
+            let form = $('<form/>').attr('name', 'addForm');
+            let inputName = $('<input/>').attr({
+                'type': 'text',
+                'name': 'name',
+                'size': '10'
+            }).html('<br>');
+            let br = $('<br>');
+            let textarea = $('<textarea/>').attr({
+                'name': 'content',
+                'cols': '20',
+                'rows': '2'
+            });
+            let inputAdd = $('<input/>').attr({
+                'type': 'button',
+                'value': '등록',
+                'onclick': 'addcomment()'
+            });
+            divAdd.append(form);
+            form.append(inputName, br, textarea, inputAdd);
+            $('#body').append(divAdd);
+
+            $.ajax({
+                url: '../CommentsServ',
+                data: {
+                    cmd: 'selectAll'
+                    // String cmd = request.getParameter("cmd"); servlet부분. 
+                    // servlet에서 else if (cmd.equals("selectAll")) 부분.
+                },
+                dataType: 'xml',
+                success: loadCommentResult,
+                error: function (reject) {
+                    console.log(newError('not defined 에러남'))
+                }
+            })
+
+            
+
+
+        }) //end of ready
     </script>
 </head>
-<body>
-    
+
+<body id="body">
+
 </body>
+
 </html>

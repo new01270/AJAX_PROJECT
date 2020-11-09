@@ -24,8 +24,8 @@ public class CommentsServ extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 한글 교환
 		request.setCharacterEncoding("utf-8");
-
 		response.setContentType("text/xml; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 
