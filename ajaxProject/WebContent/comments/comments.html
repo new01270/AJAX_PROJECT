@@ -21,11 +21,12 @@
         // 목록조회기능.
         function loadCommentResult(res) {
             let xmlDoc = res;
-            let code = xmlDoc.getElementsByTagName('code').item(0).firstChild
-                .nodeValue; // 여러태그중 <code>의 item(0).innerHTML도 가능.
+            console.log(xmlDoc);
+            let code = xmlDoc.getElementsByTagName('code').item(0).firstChild.nodeValue; 
+            // 여러태그중 <code>의 item(0).innerHTML도 가능.
             if (code == 'success') {
-                let commentsList = eval("(" +
-                    xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue + ")"
+                let commentsList = 
+                eval("(" + xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue + ")"
                 ); // eval():값을 읽어와 실행하는 method.
                 console.log(commentsList);
                 let listDiv = document.getElementById('commentsList');
