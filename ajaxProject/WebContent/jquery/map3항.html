@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/map3항.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+                    $('#score').on('change', function () {
+
+                        $.ajax({
+                            url: 'members.json',
+                            dataType: 'json',
+                            success: scoreDataMJ,
+                            error: function (reject) {
+                                console.log(new Error(reject));
+                            }
+
+                        })
+
+                        function scoreDataMJ(result) {
+                            let grade = $('#score').val();
+                            let data = $.grep(result, (value, index) => {
+                                if (grade >= 6) {
+                                    return parseInt(result.score / 10) == grade ? value : null;
+                                } else {
+                                    return parseInt(object.score / 10) <= grade ? object : null;
+                                }
+                            }).map((value, index => {
+                                    return value.first_name + " " + value.last_name + ":" + value.score;
+                                });
+
+                                $('#show').empty();
+                                let ul = $('<ul/>'); $.each(data, (index, value => {
+                                        let li = $('<li/>').html(value);
+                                        ul.append(li);
+
+
+
+
+
+                                    }) $('#show').append(ul);
+
+                                }
+
+                            })
+                    }) //end of ready
+    </script>
+</head>
+
+<body>
+    <select name="" id="score">
+        <option value="5">60미만</option>
+        <option value="6">60</option>
+        <option value="7">70</option>
+        <option value="8">80</option>
+        <option value="9">90</option>
+        <option value="10">100</option>
+    </select>
+    <div id="show"></div>
+</body>
+
+</html>
