@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.yedom.common.DBconnect;
+import com.yedam.common.DBconnect;
 
 /*
  * PreparedStatement 인터페이스는 Connection 객체의 prepareStatement() 메소드를 사용해서 객체 생성.

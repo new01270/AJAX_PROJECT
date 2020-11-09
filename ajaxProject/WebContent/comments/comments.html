@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>comments/comments.html</title>
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script>
+        $.ajax({
+            url: '../CommentsServ',
+            data: {
+                cmd: 'selectAll' // servlet에서 else if (cmd.equals("selectAll")) 부분.
+            },
+            dataType: 'xml',
+            success: loadCommentResult,
+            error: function (reject) {
+                console.log(newError('not defined 에러남'))
+            }
+        }) //end of ajax
+
+        // 목록조회기능.
+        function loadCommentResult(res) {
+            let xmlDoc = res;
+            console.log(xmlDoc);
+            let code = xmlDoc.getElementsByTagName('code').item(0).firstChild.nodeValue; 
+            // 여러태그중 <code>의 item(0).innerHTML도 가능.
+            if (code == 'success') {
+                let commentsList = 
+                eval("(" + xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue + ")"
+                ); // eval():값을 읽어와 실행하는 method.
+                console.log(commentsList);
+                let listDiv = document.getElementById('commentsList');
+                for (let i = 0; i < commentsList.length; i++) {
+                    let commentDiv = makeCommentView(commentsList[i]);
+                    listDiv.append(commentDiv);
+                }
+            } else if (code == 'error') {
+                let errMsg = xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue;
+                alert(errMsg);
+            }
+        }
+
+        // 목록조회 후 목록 수 만큼 화면에 출력: name,content,버튼2개.
+        function makeCommentView(comment) { //주는 매개변수는 commentsList[i].
+            let div = document.createElement('div');
+            div.setAttribute('id', 'c' + comment.id);
+            div.className = 'comment';
+            div.content = comment;
+            let str = '<strong>' + comment.name + '</strong>' + comment.content +
+                ' <input type="button" value="수정" onclick="viewUpdateForm(' +
+                comment.id + ')">' +
+                ' <input type="button" value="삭제" onclick="confirmDelete(' +
+                comment.id + ')">';
+            div.innerHTML = str;
+            return div;
+        }
+
+        // 등록버튼 기능 : DB추가, 화면출력.
+        function addComment() {
+            let name = document.addForm.name.value; //form tag의 name:name
+            let content = document.addForm.content.value; //form tag의 name:content
+            $.ajax({
+                url: '../CommentsServ',
+                data: {
+                    cmd: 'insert', // servlet에서 else if (cmd.equals("insert")) 부분.
+                    name: name,
+                    content: content
+                }, // 매개변수parameter(name,content):위에 지정해준 값(name,content).
+                dataType: 'xml',
+                success: addResult,
+                error: function () {
+
+                }
+            })
+        }
+
+        // 글등록 후 화면출력.
+        function addResult(res) {
+            let xmlDoc = res;
+            let code = xmlDoc.getElementsByTagName('code').item(0).innerHTML;
+            if (code == 'success') {
+                let comment = eval('(' +
+                    xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue +
+                    ')');
+                console.log(comment);
+                let listDiv = document.getElementById('commentsList'); // divID
+                let commentDiv = makeCommentView(comment); // 글을 하나 등록한 후, 화면출력 Function.
+                listDiv.append(commentDiv);
+
+                // 등록 form화면 clear.
+                document.addForm.name.value = '';
+                document.addForm.content.value = '';
+
+                alert('등록을 완료했습니다. [ id: ' + comment.id + ']');
+            } else if (code == 'error') {
+
+            }
+        }
+
+        // 수정버튼 기능. onclick="viewUpdateForm(' + comment.id + ')" -> 괄호 안 매개변수.
+        function viewUpdateForm(commentId) {
+            let commentDiv = document.getElementById('c' + commentId); // 수정하려는 라인
+            console.log(commentDiv.content);
+            let updateFormDiv = document.getElementById('commentUpdate');
+            commentDiv.after(updateFormDiv); // display:none해둔 태그를 after로 넣어주기
+            updateFormDiv.style.display = 'block';
+
+            let content = commentDiv.content; // 수정하려는 라인의 data
+            updateForm.id.value = content.id;
+            updateForm.name.value = content.name;
+            updateForm.content.value = content.content;
+
+        }
+
+        // 수정버튼 데이터교환 ajax.
+        function updateComment() {
+            let id = updateForm.id.value;
+            let name = updateForm.name.value;
+            let content = updateForm.content.value;
+
+            $.ajax({
+                url: '../CommentsServ',
+                data: {
+                    cmd: 'update',
+                    id: id,
+                    name: name,
+                    content: content
+                },
+                dataType: 'xml',
+                success: updateResult,
+                error: function () {
+
+                }
+            })
+        }
+
+        // 수정버튼 > 변경 기능
+        function updateResult(res) {
+            let xmlDoc = res;
+            let code = xmlDoc.getElementsByTagName('code').item(0).innerHTML;
+            if (code == 'success') {
+                let comment = eval('(' +
+                    xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue +
+                    ')');
+                console.log(comment);
+                let commentDiv = document.getElementById('c' + comment.id);
+                commentDiv.childNodes[0].innerHTML = comment.name;
+                commentDiv.childNodes[1].nodeValue = comment.content;
+
+                alert('수정을 완료했습니다. [ id: ' + comment.id + ']');
+
+                document.getElementById('commentUpdate').style.display = 'none';
+            }
+        }
+
+        // 수정버튼 > 취소버튼 기능
+        // onclick="confirmDelete(' + comment.id + ')"
+        function cancelUpdate() {
+            document.getElementById('commentUpdate').style.display = 'none';
+        }
+
+        // 삭제버튼 데이터교환 ajax
+        function confirmDelete(del) {
+
+            $.ajax({
+                url: '../CommentsServ',
+                data: {
+                    cmd: 'delete',
+                    id: del
+                },
+                dataType: 'xml',
+                success: deleteResult,
+                error: function () {
+
+                }
+            })
+        }
+
+        // 삭제버튼 기능
+        function deleteResult(id) {
+            let xmlDoc = id;
+            console.log(xmlDoc);
+            let data = eval('(' +
+                xmlDoc.getElementsByTagName('data').item(0).firstChild.nodeValue +
+                ')');
+            console.log(data);
+
+            alert('삭제을 완료했습니다. [ id: ' + data.id + ']');
+
+            document.getElementById('c' + data.id).remove();
+        }
+    </script>
+</head>
+
+<body>
+    <div id="commentsList"></div>
+
+    <!--등록화면-->
+    <div id="commentsAdd">
+        <form action="" name="addForm">
+            이름: <input type="text" name="name" size="10"><br> 내용:
+            <textarea name="content" cols="20" rows="2"></textarea>
+            <br> <input type="button" value="등록" onclick="addComment()">
+        </form>
+    </div>
+
+    <!--수정화면-->
+    <div id="commentUpdate" style="display: none;">
+        <form action="" name="updateForm">
+            <input type="hidden" name="id" value=""> 이름: <input type="text" name="name" size="10"><br> 내용:
+            <textarea name="content" cols="20" rows="2"></textarea>
+            <br> <input type="button" value="변경" onclick="updateComment()">
+            <input type="button" value="취소" onclick="cancelUpdate()">
+        </form>
+    </div>
+
+</body>
+
+</html>
