@@ -22,7 +22,7 @@ public class PutBookDeleteServ extends HttpServlet {
 		BookDAO bo = new BookDAO();
 		bo.deleteBookList(Integer.parseInt(no));
 		
-		
+		response.getWriter().append(no);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

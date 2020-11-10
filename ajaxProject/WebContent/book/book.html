@@ -115,19 +115,19 @@
 
         //수정버튼기능
         function bookUpdateForm(seq) {
-            console.log(seq)    // 시퀀스번호
-            
+            console.log(seq) // 시퀀스번호
+
             let liDiv = document.getElementById('e' + seq);
             //console.log(liDiv);
             let bookUpdateDiv = document.getElementById('bookUpdate');
             liDiv.after(bookUpdateDiv);
-            document.getElementById('bookUpdate').style.display ='block';
-        
+            document.getElementById('bookUpdate').style.display = 'block';
+
             document.updateForm.no.value = liDiv.childNodes[0].textContent;
             document.updateForm.title.value = liDiv.childNodes[1].textContent;
             document.updateForm.author.value = liDiv.childNodes[2].textContent;
             document.updateForm.price.value = liDiv.childNodes[3].textContent;
-                
+
         }
 
         // 수정버튼 데이터 교환 ajax
@@ -139,68 +139,63 @@
 
             $.ajax({
                 url: '../PutBookUpdateServ',
-                data: {  
-                    no: no,                  
+                data: {
+                    no: no,
                     title: title,
                     author: author,
                     price: price
                 },
                 dataType: 'json',
                 success: updateResult,
-                error: function() {
+                error: function () {
 
                 }
             })
         }
+        
+                // 수정 후 변경버튼 기능
+                function updateResult(no) {
+                    let liDiv = document.getElementById('e' + no);
+                    console.log(document.getElementById('e' + no));
 
-        // 수정 후 변경버튼 기능
-        function updateResult(seq) {
-            console.log(seq);
-            let liDiv = document.getElementById('e' + seq);
+                    liDiv.childNodes[0].nodeValue = updateForm.no.value;
+                    liDiv.childNodes[1].nodeValue = updateForm.title.value;
+                    liDiv.childNodes[2].nodeValue = updateForm.author.value;
+                    liDiv.childNodes[3].nodeValue = updateForm.price.value;
 
-            livDiv.childNodes[0].nodeValue = updateForm.no.value;
-            livDiv.childNodes[1].nodeValue = updateForm.title.value;
-            livDiv.childNodes[2].nodeValue = updateForm.author.value;
-            livDiv.childNodes[3].nodeValue = updateForm.price.value;
+                    // let div = document.getElementById('bookList');
+                    // div.append(liDiv);
 
-            // let div = document.getElementById('bookList');
-            // div.append(liDiv);
-
-            alert('수정을 완료했습니닷 [ id: ' + seq + ']');
-            //div append하기
+                    alert('수정을 완료했습니닷 [ id: ' + no + ']');
+                    
+                    document.getElementById('bookUpdate').style.display = 'none';
+                }
+       
+        // 취소버튼 기능
+        function updateCancel() {
             document.getElementById('bookUpdate').style.display = 'none';
         }
-
         // 삭제버튼 기능
         function bookDeleteForm(no) {
-            
+
             $.ajax({
                 url: '../PutBookDeleteServ',
-                data: {  
-                    no: no,   
+                data: {
+                    no: no,
                 },
                 dataType: 'json',
-                success: function() {
-
-                },
-                error: function() {
+                success: deleteResult,
+                error: function () {
 
                 }
             })
         }
 
-        // 삭제버튼 화면출력
-        function bookDeleteForm() {
-
-
+        // 삭제 후 
+        function deleteResult(no) {
+             document.getElementById('b'+no).remove();
+             alert('삭제를 완료했다 은혜야 [ id: ' + no + ']');
         }
-
-        // 취소버튼 기능
-        function updateCancel() {            
-            document.getElementById('bookUpdate').style.display = 'none';
-        }
-
-
     </script>
 </head>
 
@@ -221,7 +216,7 @@
     <!--수정화면-->
     <div id="bookUpdate" style="display: none;">
         <form action="" name="updateForm">
-            도서번호 : <input type="hidden"  name="no"  size="10" ><br>
+            도서번호 : <input type="hidden" name="no" size="10"><br>
             제목: <input type="text" name="title" size="10"><br>
             저자: <input type="text" name="author" size="10"><br>
             가격: <input type="text" name="price" size="10"><br>

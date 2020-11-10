@@ -138,7 +138,8 @@
 
         // 수정버튼 > 변경 기능
         function updateResult(res) {
-            let xmlDoc = res;
+			let xmlDoc = res;
+			console.log(xmlDoc);
             let code = xmlDoc.getElementsByTagName('code').item(0).innerHTML;
             if (code == 'success') {
                 let comment = eval('(' +

@@ -26,7 +26,7 @@ public class PutBookUpdateServ extends HttpServlet {
 		BookVO book = new BookVO(Integer.parseInt(no), title, author, Integer.parseInt(price));
 		bo.updateBookList(book);
 		
-		
+		response.getWriter().append(no);	//수정후 변경버튼 기능 때 넘겨주는 parameter
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
