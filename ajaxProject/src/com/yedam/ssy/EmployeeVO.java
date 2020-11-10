@@ -12,6 +12,7 @@ public class EmployeeVO {
 	private double commissionPct;
 	private int managerId;
 	private int departmentId;
+	
 	public int getEmployeeId() {
 		return employeeId;
 	}
