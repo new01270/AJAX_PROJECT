@@ -12,7 +12,7 @@
             dataType: 'json',
             success: loadBookList,
             error: function (reject) {
-                console.log(newError('not defined'))
+                console.log(new Error('not defined'))
             }
         })
 
@@ -66,9 +66,9 @@
 
         // 등록버튼 기능. 등록ajax
         function addBook() {
-            let title = document.addForm.title.value;
-            let author = document.addForm.author.value;
-            let price = document.addForm.price.value;
+            let title = $('#title').val();
+            let author = $('#author').val();
+            let price = $('#price').val();
 
             $.ajax({
                 url: '../PutBookAddServ',
@@ -94,13 +94,15 @@
             div.append(li);
             let input = $('<input/>').attr({
                 'type': 'button',
-                'value': '수정'
+                'value': '수정',
+                'onclick': 'bookUpdateForm(' + seq + ')'
             });
             // $(input).on('click', bookUpdateForm);
             div.append(input);
             let input2 = $('<input/>').attr({
                 'type': 'button',
-                'value': '삭제'
+                'value': '삭제',
+                'onclick': 'bookDeleteForm(' + seq + ')'
             });
             // $(input2).on('click', bookDeleteForm);
             div.append(input2);
