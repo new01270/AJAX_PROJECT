@@ -50,11 +50,11 @@ public class BookDAO {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	// 수정
 	public void updateBookList(BookVO bo) {
+		// (BookVO)안의 저장된 값을 가져오겠다.
 		conn = DBconnect.getCon();
 		sql = "update book set book_title=?, book_author=?, book_price=? where book_no=?";
 		int r;
@@ -114,11 +114,11 @@ public class BookDAO {
 
 			rs = psmt.executeQuery();
 			while (rs.next()) {
-				BookVO bo = new BookVO(rs.getString("book_title"), rs.getString("book_author"),
-						rs.getInt("book_price"));
+				BookVO bo = new BookVO(rs.getString("book_title"), 
+									rs.getString("book_author"),
+									rs.getInt("book_price"));
 				bo.setBookNo(rs.getInt("book_no"));
 				books.add(bo);
-
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -130,6 +130,6 @@ public class BookDAO {
 			}
 		}
 
-		return books; // 어디로 return??????????
+		return books; // GetBookServlet에서 선언해준 List에 return.
 	}
 } // end of DAO

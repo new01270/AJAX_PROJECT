@@ -34,7 +34,7 @@ public class BookVO {
 	
 	
 	
-	// 생성자? 만드는이유??
+	// PutBookUpdateServ 에서 생성자 사용
 	public BookVO(int bookNo, String bookTitle, String bookAuthor, int price) {
 		super();
 		this.bookNo = bookNo;
@@ -42,6 +42,9 @@ public class BookVO {
 		this.bookAuthor = bookAuthor;
 		this.price = price;
 	}
+	
+	
+	// PutBookAddServ 에서 생성자 사용
 	public BookVO(String bookTitle, String bookAuthor, int price) {
 		super();
 		

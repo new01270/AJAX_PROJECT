@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<!--jQuery book.html
+화면에 보여주는 방식을 테이블로하거나, li에 html()*4개로 만들어 textNode를 바로 받아온다.-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +19,7 @@
 
         // 목록조회
         function loadBookList(res) {
-            console.log(res);
+            //console.log(res);
             let data = res;
             let listDiv = $('#bookList');
 
@@ -37,15 +38,7 @@
                 'id': 'b' + book.bookNo
             });
             let li = $('<li/>').attr('id', 'e' + book.bookNo);
-            let text = document.createTextNode(book.bookNo);
-            let text2 = document.createTextNode(book.bookTitle);
-            let text3 = document.createTextNode(book.bookAuthor);
-            let text4 = document.createTextNode(book.price);
-            console.log(text);
-            li.append(text);
-            li.append(text2);
-            li.append(text3);
-            li.append(text4);
+            li.html(book.bookNo +" "+ book.bookTitle + " "+ book.bookAuthor + " "+ book.price);           
             let input2 = $('<input/>').attr({
                 'type': 'button',
                 'value': '수정',
@@ -117,12 +110,14 @@
         function bookUpdateForm(seq) {
             console.log(seq) // 시퀀스번호
 
-            let liDiv = document.getElementById('e' + seq);
-            let bookUpdateDiv = document.getElementById('bookUpdate');
+            let liDiv = $('#e' + seq);            
+            let bookUpdateDiv = $('#bookUpdate');
             liDiv.after(bookUpdateDiv);
-            document.getElementById('bookUpdate').style.display = 'block';
-
-            document.updateForm.no.value = liDiv.childNodes[0].textContent;
+            $('#bookUpdate').css('style','display:block');
+            
+            console.log(liDiv);
+            
+            document.updateForm.no.value = liDiv.childNodes[0].textContent.slice;
             document.updateForm.title.value = liDiv.childNodes[1].textContent;
             document.updateForm.author.value = liDiv.childNodes[2].textContent;
             document.updateForm.price.value = liDiv.childNodes[3].textContent;
@@ -191,7 +186,7 @@
             })
         }
 
-        // 삭제 후 
+        // 삭제 후  => function을 따로 빼오면 servlet에서 response로 받아와야하고, ajax의 success안에 넣으면 받아온 no 값을 바로 쓸 수 있다.
         function deleteResult(no) {
             document.getElementById('b' + no).remove();
             alert('삭제를 완료했다 [ 도서번호 : ' + no + ']');
